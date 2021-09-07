@@ -1,0 +1,20 @@
+dbaas:
+  container_name: dbaas
+  privileged: true
+  environment:
+    - TZ=America/New_York
+  restart: unless-stopped
+  image: zdcp.dbaas:pub
+  build:
+    context: ../dockerfile
+    dockerfile: dbaasDockerfile
+  volumes:
+    - /zdcp/log/dbaas:/var/log/zdcp/dbaas
+    - /zdcp/configs/dbaas/configs.yaml:/opt/dbaas/configs.yaml
+  dns:
+    - ${ZDCP_DNS}
+  ports:
+    - "18150:80"
+    - "18151:8001"
+  tty: true
+  hostname: umspforpg

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8" />
+	<title>report</title>
+	<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+	<style type="text/css">
+		body {}
+		*{
+			padding: 0;
+			margin:0
+		}
+		.topic {
+			height: 12px;
+			width: 100%;
+			background: #1cb3f1;
+		}
+
+		.logobg {
+			background: #1cb3f1;
+			width: 250px;
+			height: 20px;
+			border-radius: 20px;
+			position: relative;
+			left: 52%;
+			margin-left: -127px;
+			top: -11px;
+		}
+
+		.logobg svg {
+			position: absolute;
+			top: -22px;
+		}
+
+		.topic {
+			height: 12px;
+			width: 100%;
+			background: #1cb3f1;
+
+		}
+
+		.projectname {
+			text-align: center;
+			font-size: 18px;
+			font-weight: normal;
+		}
+
+		h2 {
+			font-size: 12px;
+			font-weight: normal;
+			float: left;
+			padding-left: 10px
+		}
+
+		h3 {
+			float: right;
+			font-size: 12px;
+			text-align: right;
+			font-weight: normal;
+			padding-right: 10px
+		}
+
+		/* 分割线 */
+		.content {
+			/* width: 1100px; */
+			width: 80%;
+			min-height: 60px;
+			/* float: left;
+            margin: 0 6%; */
+			margin: 0 auto;
+			clear: both;
+		}
+
+		.data {
+			font-size: 14px;
+			text-align: right;
+		}
+
+		.data2 {
+			padding-left: 15px;
+			font-size: 14px;
+			text-align: left;
+		}
+
+		.status_normal {
+			font-size: 12px;
+		}
+
+		.status_normal {
+			float: left;
+			border: 1px solid #dcf8ff;
+			border-radius: 4px;
+			position: relative;
+			padding: 3px 10px;
+			margin: 5px 5px;
+			background: #f5f8fb;
+		}
+
+		.status_normal::before {
+			content: '';
+			margin-right: 50px;
+			position: absolute;
+			width: 6px;
+			height: 6px;
+			top: 9.1px;
+			left: 1px;
+			border-radius: 50%;
+			background: #009944;
+		}
+
+		.status_error::before {
+			content: '';
+			margin-right: 50px;
+			position: absolute;
+			width: 6px;
+			height: 6px;
+			top: 9.1px;
+			left: 1px;
+			border-radius: 50%;
+			background: #ff1212;
+		}
+
+		.status_warning::before {
+			content: '';
+			margin-right: 50px;
+			position: absolute;
+			width: 6px;
+			height: 6px;
+			top: 9.1px;
+			left: 1px;
+			border-radius: 50%;
+			background: #f5a618;
+		}
+
+		.chart {
+			height: 300px;
+			width: 45%;
+			margin: 0px 20px 15px;
+			box-shadow: 0 2px 4px 0 #ccc;
+			background-color: #ffffff;
+			display: inline-block;
+			overflow: auto;
+
+		}
+
+		table{
+			padding: 0px 10px 0 10px;
+		}
+		.rendertable th,
+		.rendertable td {
+			text-align: center;
+			font-size: 12px;
+			font-weight: normal;
+			color: #666666;
+			height:24px;
+			padding-right: 20px;
+			background: #f9f9f9;
+		}
+		.chart>div{
+			font-size: 12px;
+			line-height: 16px;
+			padding: 10px 0 0 10px;
+
+		}
+		.tabledetail {
+			margin: 15px;
+		}
+
+		.tabledetail tr {
+			height: 26px;
+			font-size: 12px;
+		}
+
+		.tabledetail tr:nth-child(2n+1) td {
+			background: #f7f7f7;
+		}
+
+		.tabledetail th {
+			background: #ffffff;
+			height: 24px;
+			font-weight: n;
+			color: #4a4848;
+			border-bottom: 1px solid #95c9e8;
+		}
+
+		.tabledetail td {
+			border-top: 1px solid #c9f6fd78;
+			width: 200px;
+			background: #ffffff;
+			padding-left: 10px;
+			overflow: hidden;
+			white-space: wrap;
+			text-overflow: ellipsis;
+		}
+
+		.content:first-child {
+			background: #f8f9fb;
+		}
+
+		.chide {
+			display: none;
+			padding-top: 15px;
+			clear: both;
+		}
+
+		.arrdown {
+			display: none;
+		}
+
+		.arrup {
+			display: inline-block;
+		}
+
+		.importinfo {
+			float: left;
+			margin-left: 91px;
+			margin-top: 10px;
+		}
+
+		.titlewarp {
+			height: 75px;
+		}
+
+		.serious {
+			padding: 0px 4px;
+			background: #ffe5ea;
+			color: #ea0d0d;
+			border-radius: 4px;
+			margin: 0 2px;
+			border: .5px solid;
+		}
+
+		.alarm {
+			padding: 0px 4px;
+			background: #fff3e2;
+			color: #f78107;
+			border-radius: 4px;
+			margin: 0 2px;
+			border: 0.5px solid;
+		}
+
+		.alarm_num {
+			padding: 0px 4px;
+			background: #f9ecae;
+			color: #333333;
+			border-radius: 4px;
+			margin: 0 2px
+		}
+
+		.serious_num {
+			padding: 0px 4px;
+			background: #f9d3d3;
+			color: #333333;
+			border-radius: 4px;
+			margin: 0 2px
+		}
+
+		h4 {
+			position: relative;
+			padding-left: 38px;
+			margin-top: 10px;
+		}
+
+		h4 svg {
+			margin-right: 5px;
+			position: absolute;
+			top: 0px;
+			left: 7px;
+		}
+
+		.status_normal:hover {
+			background: #e1f6ff;
+			color: #1b1818;
+			cursor: pointer;
+			border: 1px solid #7ceefd
+		}
+
+		.status_normal:hover,
+		.status_normal.selected {
+			background: #e1f6ff;
+			color: #1b1818;
+			cursor: pointer;
+			border: 1px solid #7ceefd;
+
+		}
+
+		.clusterN{
+			float: left;
+			height: 40px;
+			line-height: 40px;
+			margin-left: 40px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="content">
+	<div class="topic"></div>
+	<div class="logobg">
+		<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+			 y="0px" width="204px" height="64px" viewBox="0 0 344 153" enable-background="new 0 0 344 153"
+			 xml:space="preserve">
+			<g>
+				<g>
+					<path fill="#FFFFFF" d="M64.223,69.465c0,0.802-0.65,1.452-1.453,1.452c-0.801,0-1.452-0.65-1.452-1.452
+				  c0-0.802,0.65-1.452,1.452-1.452C63.572,68.013,64.223,68.663,64.223,69.465" />
+					<path fill="#FFFFFF" d="M81.474,81.037H60.618c-2.03,0-3.939-0.79-5.375-2.227c-1.436-1.435-2.227-3.343-2.227-5.374v-1.938
+				  c0-2.466,0.731-4.843,2.113-6.875l0.017-0.026c1.165-1.667,2.727-3.053,4.518-4.008c1.852-0.987,3.945-1.509,6.056-1.509
+				  c1.528,0,3.024,0.266,4.446,0.788c1.373,0.505,2.641,1.235,3.771,2.171c0.946,0.768,1.762,1.675,2.426,2.697
+				  c0.498,0.766,0.9,1.583,1.203,2.438c3.397,0.877,5.862,3.965,5.862,7.558v0.229h-3.046c0-0.075,0-0.214,0-0.231
+				  c-0.001-2.4-1.834-4.431-4.187-4.792c-0.572-0.088-1.028-0.057-1.028-0.057l-0.261-1.001c-0.455-1.746-1.482-3.336-2.894-4.48
+				  l-0.013-0.011c-0.865-0.717-1.834-1.276-2.883-1.661c-1.085-0.399-2.227-0.601-3.396-0.601c-1.612,0-3.211,0.398-4.623,1.151
+				  c-1.366,0.728-2.557,1.784-3.446,3.055l-0.001,0c-1.038,1.525-1.587,3.312-1.587,5.165v1.938c0,2.512,2.043,4.555,4.555,4.555
+				  h20.856c2.057,0,3.73-1.673,3.73-3.73v-0.446h3.046v0.446C88.25,77.998,85.21,81.037,81.474,81.037" />
+				</g>
+			</g>
+			<rect x="99" y="59.333" fill="none" width="220" height="67.667" />
+			<text transform="matrix(1 0 0 1 98.9995 79.958)" fill="#F9F9F9" font-family="'YouYuan'" font-size="24">UMSP for
+				PostgreSQL Report</text>
+		  </svg>
+	</div>
+	<div class="titlewarp">
+		<h1 class="projectname">
+			Database：<span>{{ .name }}</span>
+		</h1>
+		<h2>Period：<span>{{ .time }}</span></h2>
+		<div class="importinfo">
+			Alarms：Citical<span class="serious">{{ .criticalAlarmingCount }}</span>（Recovered<span class="serious_num">{{ .criticalRecoveryCount }}</span>）
+			Alarm<span class="alarm">{{ .warnAlarmingCount }}</span>（Recovered<span class="alarm_num">{{ .warnRecoveryCount }}</span>）
+		</div>
+		<h3>Report generation time: <span>{{ .reportDate }}</span></h3>
+	</div>
+</div>
+<div class="content">
+	<h4>
+		<svg t="1596089597632" width="18px" class="icon" viewBox="0 0 1168 1024" version="1.1"
+			 xmlns="http://www.w3.org/2000/svg" p-id="1563">
+			<path d="M787.333831 588.946093a75.189984 75.189984 0 0 0-75.093984 75.092984 75.189984 75.189984 0 0 0 75.093984 75.093984 75.165984 75.165984 0 0 0 75.067984-75.093984 75.165984 75.165984 0 0 0-75.067984-75.092984m0 222.841953a147.919968 147.919968 0 0 1-147.749968-147.748969c0-81.455982 66.292986-147.747968 147.749968-147.747968 81.431983 0 147.747968 66.291986 147.747968 147.747968 0 81.480982-66.315986 147.748968-147.747968 147.748969m89.452981 102.106978c0.342 0.244 1.317 0.585 2.315999 0.585h0.122l71.484985-39.496992c-1.706-4.022999-9.605998-23.478995-9.605998-43.739991a113.858976 113.858976 0 0 1 107.739977-113.613975c0.853-4.729999 5.557999-31.524993 5.557998-51.639989s-4.704999-46.88399-5.559998-51.637989a113.858976 113.858976 0 0 1-107.737977-113.565976c0-20.357996 7.923998-39.813991 9.605998-43.81299l-70.313985-39.057992-0.293-0.025a5.339999 5.339999 0 0 0-2.706 0.732 196.753958 196.753958 0 0 1-26.014994 21.819995c-21.699995 15.239997-42.153991 22.967995-60.951987 22.967995-18.919996 0-39.594991-7.874998-61.390987-23.405995a194.705958 194.705958 0 0 1-26.160994-22.283995 5.777999 5.777999 0 0 0-2.729999-0.707h-0.245l-72.824985 40.032992c1.706 4.046999 9.579998 23.479995 9.579998 43.73999A113.858976 113.858976 0 0 1 528.896886 614.350088c-0.854 4.729999-5.509999 31.524993-5.509998 51.639989s4.655999 46.90799 5.533998 51.661989a113.858976 113.858976 0 0 1 107.763977 113.589975c0 20.334996-7.972998 39.863991-9.679998 43.788991l68.973985 38.545992h0.146c1.024 0 1.95-0.365 2.317-0.585a200.849957 200.849957 0 0 1 26.428994-23.161995c22.088995-16.188997 43.079991-24.429995 62.414987-24.429995 19.552996 0 40.715991 8.387998 62.949986 24.917995 14.921997 11.068998 25.259995 22.185995 26.551995 23.575995m22.673995 108.397976c-13.774997-0.025-27.135994-5.704999-35.765993-15.213996-11.775997-12.896997-49.005989-46.44599-79.530982-46.44599-30.280993 0-68.119985 33.767993-78.993984 45.54399-8.606998 9.386998-21.869995 14.969997-35.499992 14.969997-6.483999 0-12.603997-1.243-18.186996-3.706l-0.975-0.414-92.69698-51.833988-0.926-0.683a44.46999 44.46999 0 0 1-14.920996-53.735989c0.049-0.146 8.532998-19.699996 8.532998-37.594992a98.376979 98.376979 0 0 0-98.254979-98.254978h-3.900999c-15.505997 0-28.159994-13.799997-32.182993-35.108993-0.341-1.706-7.923998-42.178991-7.923999-74.044984 0-31.913993 7.557998-72.361984 7.899999-74.117984 4.119999-21.576995 16.992996-35.449992 32.816993-35.083993h3.266999a98.400979 98.400979 0 0 0 98.279979-98.303978c0-17.846996-8.484998-37.399992-8.559998-37.619992a44.34899 44.34899 0 0 1 15.068996-53.661989l0.95-0.658 97.839979-53.759988 1.025-0.415c5.485999-2.364999 11.507998-3.534999 17.895996-3.534999 13.604997 0 26.891994 5.436999 35.595992 14.629997 11.579998 12.115997 48.17699 43.640991 77.774984 43.64099 29.354994 0 65.755986-30.914993 77.287983-42.812991 8.654998-8.996998 21.844995-14.335997 35.302992-14.335997 6.509999 0 12.653997 1.22 18.285997 3.657l0.974999 0.414 94.47698 52.516988 0.95 0.658c16.895996 11.751997 23.332995 34.889993 14.945997 53.735989-0.05 0.146-8.532998 19.699996-8.532999 37.545992a98.400979 98.400979 0 0 0 98.254979 98.279978h3.29c15.775997-0.34 28.719994 13.506997 32.817993 35.107993 0.317 1.707 7.899998 42.203991 7.899998 74.069984 0 31.889993-7.582998 72.410984-7.949998 74.117984-4.045999 21.551995-16.991996 35.424992-32.766993 35.059993h-3.291a98.400979 98.400979 0 0 0-98.254979 98.278978c0 17.846996 8.483998 37.449992 8.556999 37.619992a44.42199 44.42199 0 0 1-15.017997 53.710989l-0.927 0.683-96.133979 53.100988-0.975 0.415a44.88499 44.88499 0 0 1-17.846996 3.583999z m222.061952-705.339848a48.76199 48.76199 0 1 1-97.523979 0V121.977194c0-13.457997-10.873998-24.453995-24.307995-24.453995H121.829974c-13.262997 0-24.306995 10.970998-24.306995 24.453995v584.995874c0 13.457997 10.873998 24.453995 24.307995 24.453995h219.499953a48.76199 48.76199 0 1 1 0 97.523979H48.908989A48.76199 48.76199 0 0 1 0 780.191052V48.76121C0 21.822215 21.893995 0.00022 48.907989 0.00022h1023.706781a48.76199 48.76199 0 0 1 48.907989 48.76199v268.189942zM219.427953 975.23701c0-26.940994 21.991995-48.76199 48.981989-48.761989h194.607959a48.76199 48.76199 0 1 1 0 97.523979H268.433942a48.76199 48.76199 0 0 1-49.005989-48.76199z" p-id="1564"></path>
+		</svg>Database Cluster
+	</h4>
+	<div style="clear: both;">
+		{{ range .memberList }}
+
+				{{ if eq .status "running" }}
+					<div id="show_{{.objectInst}}" class="status_normal status_normal cshow">
+						<b>
+							Cluster Member {{ .name }}：
+						</b>
+						<a>
+							<b class="arrup" style='display: inline-block;' id="up_{{.objectInst}}"> ∨ </b>
+							<b class="arrdown" style='display: none;' id="down_{{.objectInst}}"> ∧ </b>
+						</a>
+					</div>
+				{{ else if eq .status "offline" }}
+					<div id="show_{{.objectInst}}" class="status_normal status_error cshow">
+						<b>
+							Cluster Member {{ .name }}：
+						</b>
+						<a>
+							<b class="arrup" style='display: inline-block;' id="up_{{.objectInst}}"> ∨ </b>
+							<b class="arrdown" style='display: none;' id="down_{{.objectInst}}"> ∧ </b>
+						</a>
+					</div>
+				{{ else }}
+					<div id="show_{{.objectInst}}" class="status_normal status_warning cshow">
+						<b>
+							Cluster Member {{ .name }}：
+						</b>
+						<a>
+							<b class="arrup" style='display: inline-block;' id="up_{{.objectInst}}"> ∨ </b>
+							<b class="arrdown" style='display: none;' id="down_{{.objectInst}}"> ∧ </b>
+						</a>
+					</div>
+				{{ end }}
+				<div id="hide_{{.objectInst}}" class='chide' style='display: none'>
+					<div class="chart" id="QPS_{{.objectInst}}"></div>
+					<div class="chart" id="Session_{{.objectInst}}"></div>
+
+					<!-- 查询总耗时 -->
+					<div class="chart" id="Total_Query_Time_{{.objectInst}}"></div>
+
+					<!-- 单次耗时 -->
+					<div class="chart" id="Single_Query_Time_Consumption_{{.objectInst}}"></div>
+
+					<!-- 响应时间抖动最严重 -->
+					<div class="chart" id="Response_Time_Jitter_Is_The_Most_Serious_{{.objectInst}}"></div>
+
+					<!-- 总IO耗时 -->
+					<div class="chart" id="Query_Consumes_Most_IO_{{.objectInst}}"></div>
+
+					<!-- 单次查询最耗IO -->
+					<div class="chart" id="Single_Query_Consumes_Most_IO_{{.objectInst}}"></div>
+
+					<!-- 最耗共享内存 -->
+					<div class="chart" id="Shared_Memory_Consumption_{{.objectInst}}"></div>
+
+					<!-- 最耗临时空间 -->
+					<div class="chart" id="Most_Temporary_Space_Consumption_{{.objectInst}}"></div>
+
+					<!-- 热表信息 -->
+					<div class="chart" id="Heat_Meter_Information_{{.objectInst}}"></div>
+
+					<!-- 冷表信息 -->
+					<div class="chart" id="Cold_Meter_Information_{{.objectInst}}"></div>
+
+					<!-- 全表扫描次数" -->
+					<div class="chart" id="Number_Of_Full_Table_Scans_{{.objectInst}}"></div>
+
+					<!-- 全表扫描返回记录数 -->
+					<div class="chart" id="Number_Of_Records_Returned_By_Full_Table_Scanning_{{.objectInst}}"></div>
+
+					<!-- 热索引 -->
+					<div class="chart" id="Hot_Index_Information_{{.objectInst}}"></div>
+
+					<!-- 冷索引信息 -->
+					<div class="chart" id="Cold_Index_Information_{{.objectInst}}"></div>
+
+					<!-- 索引大小 -->
+					<div class="chart" id="Index_Size_{{.objectInst}}"></div>
+
+					<!-- 索引扫描返回记录数 -->
+				</div>
+		{{ end }}
+	</div>
+</div>
+<div class="content">
+	<h4>
+		<svg t="1596089597632" width="18px" class="icon" viewBox="0 0 1168 1024" version="1.1"
+			 xmlns="http://www.w3.org/2000/svg" p-id="1563">
+			<path
+					d="M787.333831 588.946093a75.189984 75.189984 0 0 0-75.093984 75.092984 75.189984 75.189984 0 0 0 75.093984 75.093984 75.165984 75.165984 0 0 0 75.067984-75.093984 75.165984 75.165984 0 0 0-75.067984-75.092984m0 222.841953a147.919968 147.919968 0 0 1-147.749968-147.748969c0-81.455982 66.292986-147.747968 147.749968-147.747968 81.431983 0 147.747968 66.291986 147.747968 147.747968 0 81.480982-66.315986 147.748968-147.747968 147.748969m89.452981 102.106978c0.342 0.244 1.317 0.585 2.315999 0.585h0.122l71.484985-39.496992c-1.706-4.022999-9.605998-23.478995-9.605998-43.739991a113.858976 113.858976 0 0 1 107.739977-113.613975c0.853-4.729999 5.557999-31.524993 5.557998-51.639989s-4.704999-46.88399-5.559998-51.637989a113.858976 113.858976 0 0 1-107.737977-113.565976c0-20.357996 7.923998-39.813991 9.605998-43.81299l-70.313985-39.057992-0.293-0.025a5.339999 5.339999 0 0 0-2.706 0.732 196.753958 196.753958 0 0 1-26.014994 21.819995c-21.699995 15.239997-42.153991 22.967995-60.951987 22.967995-18.919996 0-39.594991-7.874998-61.390987-23.405995a194.705958 194.705958 0 0 1-26.160994-22.283995 5.777999 5.777999 0 0 0-2.729999-0.707h-0.245l-72.824985 40.032992c1.706 4.046999 9.579998 23.479995 9.579998 43.73999A113.858976 113.858976 0 0 1 528.896886 614.350088c-0.854 4.729999-5.509999 31.524993-5.509998 51.639989s4.655999 46.90799 5.533998 51.661989a113.858976 113.858976 0 0 1 107.763977 113.589975c0 20.334996-7.972998 39.863991-9.679998 43.788991l68.973985 38.545992h0.146c1.024 0 1.95-0.365 2.317-0.585a200.849957 200.849957 0 0 1 26.428994-23.161995c22.088995-16.188997 43.079991-24.429995 62.414987-24.429995 19.552996 0 40.715991 8.387998 62.949986 24.917995 14.921997 11.068998 25.259995 22.185995 26.551995 23.575995m22.673995 108.397976c-13.774997-0.025-27.135994-5.704999-35.765993-15.213996-11.775997-12.896997-49.005989-46.44599-79.530982-46.44599-30.280993 0-68.119985 33.767993-78.993984 45.54399-8.606998 9.386998-21.869995 14.969997-35.499992 14.969997-6.483999 0-12.603997-1.243-18.186996-3.706l-0.975-0.414-92.69698-51.833988-0.926-0.683a44.46999 44.46999 0 0 1-14.920996-53.735989c0.049-0.146 8.532998-19.699996 8.532998-37.594992a98.376979 98.376979 0 0 0-98.254979-98.254978h-3.900999c-15.505997 0-28.159994-13.799997-32.182993-35.108993-0.341-1.706-7.923998-42.178991-7.923999-74.044984 0-31.913993 7.557998-72.361984 7.899999-74.117984 4.119999-21.576995 16.992996-35.449992 32.816993-35.083993h3.266999a98.400979 98.400979 0 0 0 98.279979-98.303978c0-17.846996-8.484998-37.399992-8.559998-37.619992a44.34899 44.34899 0 0 1 15.068996-53.661989l0.95-0.658 97.839979-53.759988 1.025-0.415c5.485999-2.364999 11.507998-3.534999 17.895996-3.534999 13.604997 0 26.891994 5.436999 35.595992 14.629997 11.579998 12.115997 48.17699 43.640991 77.774984 43.64099 29.354994 0 65.755986-30.914993 77.287983-42.812991 8.654998-8.996998 21.844995-14.335997 35.302992-14.335997 6.509999 0 12.653997 1.22 18.285997 3.657l0.974999 0.414 94.47698 52.516988 0.95 0.658c16.895996 11.751997 23.332995 34.889993 14.945997 53.735989-0.05 0.146-8.532998 19.699996-8.532999 37.545992a98.400979 98.400979 0 0 0 98.254979 98.279978h3.29c15.775997-0.34 28.719994 13.506997 32.817993 35.107993 0.317 1.707 7.899998 42.203991 7.899998 74.069984 0 31.889993-7.582998 72.410984-7.949998 74.117984-4.045999 21.551995-16.991996 35.424992-32.766993 35.059993h-3.291a98.400979 98.400979 0 0 0-98.254979 98.278978c0 17.846996 8.483998 37.449992 8.556999 37.619992a44.42199 44.42199 0 0 1-15.017997 53.710989l-0.927 0.683-96.133979 53.100988-0.975 0.415a44.88499 44.88499 0 0 1-17.846996 3.583999z m222.061952-705.339848a48.76199 48.76199 0 1 1-97.523979 0V121.977194c0-13.457997-10.873998-24.453995-24.307995-24.453995H121.829974c-13.262997 0-24.306995 10.970998-24.306995 24.453995v584.995874c0 13.457997 10.873998 24.453995 24.307995 24.453995h219.499953a48.76199 48.76199 0 1 1 0 97.523979H48.908989A48.76199 48.76199 0 0 1 0 780.191052V48.76121C0 21.822215 21.893995 0.00022 48.907989 0.00022h1023.706781a48.76199 48.76199 0 0 1 48.907989 48.76199v268.189942zM219.427953 975.23701c0-26.940994 21.991995-48.76199 48.981989-48.761989h194.607959a48.76199 48.76199 0 1 1 0 97.523979H268.433942a48.76199 48.76199 0 0 1-49.005989-48.76199z"
+					p-id="1564"></path>
+		</svg>Host Detail
+	</h4>
+	{{ range .hostList }}
+		{{ if eq .AgentStatus "normal" }}
+			<div id="show_{{.ObjectInst}}" class="status_normal cshow">
+				<b>{{ .Hostname }} ：</b>
+				<a>
+					<b class="arrup" style='display: inline-block;' id="up_{{.ObjectInst}}"> ∨ </b>
+					<b class="arrdown" style='display: none;' id="down_{{.ObjectInst}}"> ∧ </b>
+				</a>
+			</div>
+		{{ else if eq .AgentStatus "unnormal" }}
+			<div id="show_{{.ObjectInst}}" class="status_normal cshow">
+				<b>{{ .Hostname }} ：</b>
+				<a>
+					<b class="arrup" style='display: inline-block;' id="up_{{.ObjectInst}}"> ∨ </b>
+					<b class="arrdown" style='display: none;' id="down_{{.ObjectInst}}"> ∧ </b>
+				</a>
+			</div>
+		{{ else if eq .AgentStatus "warning" }}
+			<div id="show_{{.ObjectInst}}" class="status_normal cshow">
+				<b>{{ .Hostname }} ：</b>
+				<a>
+					<b class="arrup" style='display: inline-block;' id="up_{{.ObjectInst}}"> ∨ </b>
+					<b class="arrdown" style='display: none;' id="down_{{.ObjectInst}}"> ∧ </b>
+				</a>
+			</div>
+		{{ end }}
+		<div id="hide_{{.ObjectInst}}" class='chide' style='display: none'>
+			<!-- CPU -->
+			<div class="chart" id="cpu_use_rate_{{.ObjectInst}}"></div>
+			<!-- 内存 -->
+			<div class="chart" id="mem_use_rate_{{.ObjectInst}}"></div>
+			<!-- 存储 -->
+			<div class="chart" id="disk_write_{{.ObjectInst}}"></div>
+			<!-- 磁盘使用率 -->
+			<div class="chart" id="disk_read_{{.ObjectInst}}"></div>
+		</div>
+	{{ end }}
+</div>
+<div class="content" style="clear: both">
+	<h4>
+		<svg t="1596089597632" width="18px" class="icon" viewBox="0 0 1168 1024" version="1.1"
+			 xmlns="http://www.w3.org/2000/svg" p-id="1563">
+			<path
+					d="M787.333831 588.946093a75.189984 75.189984 0 0 0-75.093984 75.092984 75.189984 75.189984 0 0 0 75.093984 75.093984 75.165984 75.165984 0 0 0 75.067984-75.093984 75.165984 75.165984 0 0 0-75.067984-75.092984m0 222.841953a147.919968 147.919968 0 0 1-147.749968-147.748969c0-81.455982 66.292986-147.747968 147.749968-147.747968 81.431983 0 147.747968 66.291986 147.747968 147.747968 0 81.480982-66.315986 147.748968-147.747968 147.748969m89.452981 102.106978c0.342 0.244 1.317 0.585 2.315999 0.585h0.122l71.484985-39.496992c-1.706-4.022999-9.605998-23.478995-9.605998-43.739991a113.858976 113.858976 0 0 1 107.739977-113.613975c0.853-4.729999 5.557999-31.524993 5.557998-51.639989s-4.704999-46.88399-5.559998-51.637989a113.858976 113.858976 0 0 1-107.737977-113.565976c0-20.357996 7.923998-39.813991 9.605998-43.81299l-70.313985-39.057992-0.293-0.025a5.339999 5.339999 0 0 0-2.706 0.732 196.753958 196.753958 0 0 1-26.014994 21.819995c-21.699995 15.239997-42.153991 22.967995-60.951987 22.967995-18.919996 0-39.594991-7.874998-61.390987-23.405995a194.705958 194.705958 0 0 1-26.160994-22.283995 5.777999 5.777999 0 0 0-2.729999-0.707h-0.245l-72.824985 40.032992c1.706 4.046999 9.579998 23.479995 9.579998 43.73999A113.858976 113.858976 0 0 1 528.896886 614.350088c-0.854 4.729999-5.509999 31.524993-5.509998 51.639989s4.655999 46.90799 5.533998 51.661989a113.858976 113.858976 0 0 1 107.763977 113.589975c0 20.334996-7.972998 39.863991-9.679998 43.788991l68.973985 38.545992h0.146c1.024 0 1.95-0.365 2.317-0.585a200.849957 200.849957 0 0 1 26.428994-23.161995c22.088995-16.188997 43.079991-24.429995 62.414987-24.429995 19.552996 0 40.715991 8.387998 62.949986 24.917995 14.921997 11.068998 25.259995 22.185995 26.551995 23.575995m22.673995 108.397976c-13.774997-0.025-27.135994-5.704999-35.765993-15.213996-11.775997-12.896997-49.005989-46.44599-79.530982-46.44599-30.280993 0-68.119985 33.767993-78.993984 45.54399-8.606998 9.386998-21.869995 14.969997-35.499992 14.969997-6.483999 0-12.603997-1.243-18.186996-3.706l-0.975-0.414-92.69698-51.833988-0.926-0.683a44.46999 44.46999 0 0 1-14.920996-53.735989c0.049-0.146 8.532998-19.699996 8.532998-37.594992a98.376979 98.376979 0 0 0-98.254979-98.254978h-3.900999c-15.505997 0-28.159994-13.799997-32.182993-35.108993-0.341-1.706-7.923998-42.178991-7.923999-74.044984 0-31.913993 7.557998-72.361984 7.899999-74.117984 4.119999-21.576995 16.992996-35.449992 32.816993-35.083993h3.266999a98.400979 98.400979 0 0 0 98.279979-98.303978c0-17.846996-8.484998-37.399992-8.559998-37.619992a44.34899 44.34899 0 0 1 15.068996-53.661989l0.95-0.658 97.839979-53.759988 1.025-0.415c5.485999-2.364999 11.507998-3.534999 17.895996-3.534999 13.604997 0 26.891994 5.436999 35.595992 14.629997 11.579998 12.115997 48.17699 43.640991 77.774984 43.64099 29.354994 0 65.755986-30.914993 77.287983-42.812991 8.654998-8.996998 21.844995-14.335997 35.302992-14.335997 6.509999 0 12.653997 1.22 18.285997 3.657l0.974999 0.414 94.47698 52.516988 0.95 0.658c16.895996 11.751997 23.332995 34.889993 14.945997 53.735989-0.05 0.146-8.532998 19.699996-8.532999 37.545992a98.400979 98.400979 0 0 0 98.254979 98.279978h3.29c15.775997-0.34 28.719994 13.506997 32.817993 35.107993 0.317 1.707 7.899998 42.203991 7.899998 74.069984 0 31.889993-7.582998 72.410984-7.949998 74.117984-4.045999 21.551995-16.991996 35.424992-32.766993 35.059993h-3.291a98.400979 98.400979 0 0 0-98.254979 98.278978c0 17.846996 8.483998 37.449992 8.556999 37.619992a44.42199 44.42199 0 0 1-15.017997 53.710989l-0.927 0.683-96.133979 53.100988-0.975 0.415a44.88499 44.88499 0 0 1-17.846996 3.583999z m222.061952-705.339848a48.76199 48.76199 0 1 1-97.523979 0V121.977194c0-13.457997-10.873998-24.453995-24.307995-24.453995H121.829974c-13.262997 0-24.306995 10.970998-24.306995 24.453995v584.995874c0 13.457997 10.873998 24.453995 24.307995 24.453995h219.499953a48.76199 48.76199 0 1 1 0 97.523979H48.908989A48.76199 48.76199 0 0 1 0 780.191052V48.76121C0 21.822215 21.893995 0.00022 48.907989 0.00022h1023.706781a48.76199 48.76199 0 0 1 48.907989 48.76199v268.189942zM219.427953 975.23701c0-26.940994 21.991995-48.76199 48.981989-48.761989h194.607959a48.76199 48.76199 0 1 1 0 97.523979H268.433942a48.76199 48.76199 0 0 1-49.005989-48.76199z"
+					p-id="1564"></path>
+		</svg>Alarm List
+	</h4>
+	<table width="97%" class="tabledetail" cellpadding="0" cellspacing="0">
+		<tr>
+			<th width="10%">Alarm Name</th>
+			<th width="10%">Threshold</th>
+			<th width="10%">State</th>
+			<th width="10%">Time</th>
+			<th width="50%">Content</th>
+			<th width="10%">Recovery Time</th>
+		</tr>
+		{{ if eq .alarmLen 0 }}
+			<tr>
+				<td colspan="6">
+						<span style="position: relative;">
+						<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+							 x="0px" y="0px" width="152.461px" height="128.452px" viewBox="0 0 1152.461 1128.452"
+							 enable-background="new 0 0 1152.461 1128.452" xml:space="preserve">
+				<g>
+					<g>
+						<defs>
+							<rect id="SVGID_1_" x="304.737" y="123.903" width="577.92" height="649.92" />
+						</defs>
+						<clipPath id="SVGID_2_">
+							<use xlink:href="#SVGID_1_" overflow="visible" />
+						</clipPath>
+						<path clip-path="url(#SVGID_2_)" d="M751.952,196.063c-3.84,0.879-7.918-0.16-10.801-2.879c-2.156-2-3.358-4.722-3.358-7.679
+				c0-2.883,1.202-5.68,3.358-7.68l29.762-29.844c2-2.156,4.72-3.359,7.679-3.359c2.961,0,5.681,1.203,7.681,3.359
+				c2.159,2,3.36,4.723,3.36,7.684c0,2.879-1.201,5.679-3.36,7.679l-29.759,29.84c-1.838,1.84-2.721,2.719-4.562,2.719
+				 M818.676,265.665c-1.364,0.719-2.961,1.039-4.563,0.957l-37.84-4.481c-6-0.476-10.398-5.757-9.918-11.757
+				c0.481-6,5.758-10.403,11.758-9.922l37.84,3.601c6,0.559,10.402,5.762,9.923,11.762
+				C825.875,260.301,822.995,264.301,818.676,265.665 M687.874,181.665c-2.723,0.957-5.762,0.636-8.321-0.723
+				c-2.558-1.359-4.401-3.758-5.198-6.48l-12.64-36.161c-1.922-5.437,0.877-11.519,6.319-13.597c2.72-0.961,5.759-0.723,8.32,0.64
+				c2.559,1.36,4.481,3.68,5.278,6.481l12.64,36.156c1.121,2.641,1.121,5.602-0.078,8.16
+				C692.995,178.782,690.676,180.704,687.874,181.665 M546.354,772.864H409.233c-4.961,0-9.039-4.082-9.039-9.039
+				c0-4.961,4.078-9.043,9.039-9.043h137.039c2.481-0.16,4.801,0.723,6.563,2.48c1.757,1.762,2.636,4.16,2.476,6.563
+				c0,2.398-0.957,4.719-2.636,6.398C550.995,771.903,548.753,772.864,546.354,772.864L546.354,772.864z M409.233,724.782
+				c-4.961,0-9.039-4.078-9.039-9.039s4.078-9.039,9.039-9.039l304.879-0.879c4.961,0,9.039,4.078,9.039,9.039
+				s-4.078,9.039-9.039,9.039L409.233,724.782z M409.233,724.782" />
+						<path clip-path="url(#SVGID_2_)" d="M352.194,352.384c5.438-1.922,9.277-6.879,9.84-12.641
+				c-10.402-32.559-20.801-65.199-31.281-97.762c-1.918-6.078-9.2-9.199-16.239-6.957c-7.043,2.238-11.281,8.957-9.281,15.039
+				c10.399,32.879,20.801,65.762,31.281,98.719C340.592,352.942,346.753,354.384,352.194,352.384L352.194,352.384z M435.312,608.782
+				c5.442-1.918,9.281-6.879,9.84-12.641c-10.398-32.559-20.797-65.199-31.277-97.758c-1.922-6.082-9.199-9.199-16.242-6.961
+				c-7.04,2.242-11.278,8.961-9.278,15.039c10.399,32.883,20.797,65.762,31.278,98.723
+				C423.632,609.422,429.792,610.782,435.312,608.782L435.312,608.782z M457.714,671.825c5.437-1.922,9.281-6.883,9.839-12.641
+				c-10.402-32.563-0.242-0.48-10.64-33.043c-1.918-6.078-9.199-9.199-16.238-6.957c-7.043,2.238-11.282,8.957-9.282,15.039
+				c10.399,32.879,0.239,1.121,10.641,34C446.112,672.461,452.272,673.825,457.714,671.825L457.714,671.825z M451.875,673.583
+				c32.961-10.16,1.039-0.48,34-10.641c6.078-1.84,9.277-9.199,7.121-16.238c-2.16-7.039-8.883-11.281-14.961-9.441
+				c-32.723,10-0.481,0.082-33.199,10.16c-4.403,3.762-6.243,9.68-4.801,15.281C441.471,668.301,446.112,672.543,451.875,673.583
+				L451.875,673.583z M393.393,480.782c5.442-1.918,9.282-6.879,9.84-12.641c-10.398-32.559-20.801-65.199-31.281-97.757
+				c-1.918-6.083-9.199-9.2-16.238-6.961c-7.039,2.242-11.282,8.961-9.282,15.039c10.403,32.882,20.801,65.761,31.282,98.722
+				C381.792,481.344,387.952,482.704,393.393,480.782L393.393,480.782z M776.995,560.461c32.558-11.438,65.117-22.797,97.681-34.238
+				c6.078-2.082,8.877-9.52,6.476-16.48c-2.397-6.961-9.277-10.961-15.276-8.879c-32.322,11.199-64.642,22.48-96.962,33.68
+				c-4.237,3.918-5.84,9.918-4.159,15.438C766.432,555.583,771.233,559.665,776.995,560.461L776.995,560.461z M521.233,649.422
+				c32.559-11.441,65.121-22.801,97.68-34.238c6.082-2.082,8.88-9.52,6.48-16.48c-2.398-6.961-9.281-10.961-15.281-8.879
+				c-32.32,11.199-64.641,22.477-96.961,33.68c-4.238,3.918-5.84,9.918-4.156,15.438
+				C510.675,644.461,515.471,648.622,521.233,649.422L521.233,649.422z M648.836,605.981c32.558-11.438,65.116-22.797,97.678-34.238
+				c6.078-2.078,8.88-9.52,6.481-16.48c-2.403-6.961-9.28-10.961-15.28-8.879c-32.322,11.199-64.642,22.48-96.961,33.68
+				c-4.24,3.918-5.841,9.918-4.162,15.441C638.194,601.102,642.995,605.184,648.836,605.981L648.836,605.981z M510.753,500.223
+				l34.242-66.32l77.117,39.84c3.199,1.68,6.883,2,10.319,0.879l0.322-0.078c3.519-1.199,6.397-3.84,7.922-7.199l82.078-181.203
+				c3.121-6.797,0.082-14.879-6.72-17.918c-6.801-3.039-14.883-0.082-17.922,6.719l-76.238,168.16l-76.48-39.438
+				c-6.64-3.442-14.801-0.801-18.242,5.84l-40.476,78.32c-3.442,6.637-0.801,14.797,5.839,18.238
+				C499.151,509.422,507.312,506.864,510.753,500.223L510.753,500.223z M510.753,500.223" />
+					</g>
+				</g>
+
+				</svg>
+					<span style="position: absolute;bottom: 20px;width: 50px;left: 46px;color: #a2a2a2;">No Data</span>
+				</span>
+				</td>
+			</tr>
+		{{ else }}
+			{{ range .alarm }}
+				<tr>
+					<td>{{ .alarmName }}</td>
+					<td>{{ .level }}</td>
+					<td>{{ .state }}</td>
+					<td>{{ .alarmTime }}</td>
+					<td>{{ .message }}</td>
+					<td>{{ .recoveryTime }}</td>
+				</tr>
+			{{ end }}
+		{{ end }}
+	</table>
+</div>
+<script type="text/javascript">
+	// 获取获取类名为cshow的标签
+	const cshowLable = document.getElementsByClassName('cshow');
+	// 获取图标类
+	const iconLable = document.getElementsByClassName('arrup');
+	for (let i = 0; i < cshowLable.length; i++) {
+		cshowLable[i].onclick = function(e) {
+			render(e);
+		};
+	}
+	function render(e) {
+		// 当前标签的id
+		const targetId = e.currentTarget.id;
+		let arr = [];
+		// 取出需要的id值
+		const showId = targetId.split('_')[1];
+		const hideId = 'hide_' + showId;
+		const downId = 'down_' + showId;
+		const upId = 'up_' + showId;
+		const hideLable = document.getElementById(hideId);
+		const downLable = document.getElementById(downId);
+		const iconLable = document.getElementById(upId);
+		const hasselected =e.currentTarget.classList.contains('selected');
+
+		let Pnode= e.currentTarget.parentElement.children;
+
+		for(var i=0;i<Pnode.length;i++) {
+
+			if(Pnode[i] !== e.currentTarget){
+				Pnode[i].classList.remove("selected");
+				if(!Pnode[i].classList.contains('chide') && (Pnode[i].tagName !== 'H4') ){
+					Pnode[i].getElementsByClassName('arrup')[0].style.display = 'inline-block';
+					Pnode[i].getElementsByClassName('arrdown')[0].style.display  = 'none';
+				}
+			}
+			if(Pnode[i].classList.contains('chide') &&  !(Pnode[i] === hideLable) ){
+				Pnode[i].style.display = "none";
+			}
+
+		}
+		if(!hasselected || e.currentTarget) {
+			e.currentTarget.classList.add('selected');
+			e.currentTarget.getElementsByClassName('arrup')[0].style.display = 'none'
+			e.currentTarget.getElementsByClassName('arrdown')[0].style.display = 'inline-block'
+			hideLable.style.display = "block";
+		}
+
+		var chartArr = {{ .chartData }};
+		var hostList = chartArr && chartArr.hostList? chartArr.hostList : [];
+		var memberList = chartArr && chartArr.memberList? chartArr.memberList : [];
+		for (var i = 0; i < hostList.length; i++) {
+			// 渲染主机性能
+			renderElement(hostList[i].chartData, showId);
+		}
+		for (var i = 0; i < memberList.length; i++) {
+			// 渲染数据库性能
+			renderElement(memberList[i].chartData, showId);
+		}
+	}
+
+	function renderElement(chartData, showId) {
+		for (var j = 0; j < chartData.length; j++) {
+			var item = chartData[j];
+			if (document.getElementById(item.code+ "_" + showId)) {
+				var myChart = echarts.init(document.getElementById(item.code + "_" + showId));
+				if ( item.type === "Table" ) {
+					renderElementTable(item, showId);
+				} else {
+					renderElementChart(item, showId);
+				}
+			}
+		}
+	}
+
+	function renderElementTable(item, showId) {
+		var childDom = document.getElementById(item.code + "_" + showId);
+		childDom.innerHTML = "";
+		let divTitle = document.createElement("div");
+		divTitle.innerHTML = item.code;
+		childDom.append(divTitle);
+		if (item.data && item.data.columns && item.data.columns.length > 0) {
+			let table = document.createElement("table");
+			table.className='rendertable';
+			let titleTr  = document.createElement("tr");
+			for (var i = 0; i < item.data.columns.length; i++ ) {
+				let th = document.createElement("th");
+				th.innerText = item.data.columns[i].name;
+				titleTr.appendChild(th);
+			}
+			table.appendChild(titleTr);
+			for (var j = 0; j < item.data.detail.length; j++ ) {
+				let tr  = document.createElement("tr");
+				for (var k = 0; k < item.data.columns.length; k++ ) {
+					let th = document.createElement("th");
+					th.innerText = item.data.detail[j][item.data.columns[k].name];
+					tr.appendChild(th);
+				}
+				table.appendChild(tr);
+			}
+			childDom.append(table);
+		}
+	}
+
+	function renderElementChart(item, showId) {
+		if (document.getElementById(item.code+ "_" + showId)) {
+			var myChart = echarts.init(document.getElementById(item.code + "_" + showId));
+			if (item.type === "Line") {
+				var options = {
+					title: {
+						padding: 15,
+						text: item.code,
+						textStyle: {
+							color: '#000000',
+							fontSize: '12px',
+							lineHeight: '16px',
+							fontWeight: 'bold'
+						},
+					},
+					tooltip: {
+						trigger: "axis",
+					},
+					legend: {
+						padding: 15,
+						top: "7%",
+						textStyle: {
+							color: 'black',
+						},
+						data: item.chartData.legendData,
+					},
+					grid: {
+						left: '1%',
+						right: '2%',
+						bottom: '1%',
+						containLabel: true,
+					},
+					toolbox: {
+						feature: {
+							saveAsImage: {},
+						},
+					},
+					xAxis: {
+						type: 'category',
+						boundaryGap: false,
+						data: item.chartData.xAxisData,
+						axisLabel: {
+							padding: [3, 3, 3, 3],
+							textStyle: {
+								color: 'black',
+							},
+							formatter: function (v) {
+								// 时间格式进行转化
+								if( v.indexOf("-") > 0 ){
+									var date = new Date(v);
+									return `${date.getFullYear()}-${('0' + date.getMonth()).slice(-2)}-${('0' + date.getDay()).slice(-2)} ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}:${('0' + date.getSeconds()).slice(-2)}`;
+								}
+								return v
+							},
+						},
+					},
+					yAxis: {
+						type: 'value',
+						splitLine: {
+							show: false,
+						},
+						axisLabel: {
+							textStyle: {
+								color: 'black',
+							},
+							formatter: function (value) {
+								return handleUnit({ unit: item.unit, value: value });
+							},
+						},
+					},
+					series: item.chartData.dataSource,
+				};
+			} else {
+				var options = {
+					title: {
+						padding: 15,
+						text: item.code,
+						textStyle: {
+							color: '#000000',
+							fontSize: '12px',
+							lineHeight: '16px',
+							fontWeight: 'bold'
+						},
+					},
+					tooltip: {
+						trigger: "axis",
+						axisPointer: {
+							type: "shadow"
+						}
+					},
+					legend: {
+						padding: 15,
+						top: "7%",
+						textStyle: {
+							color: 'black',
+						},
+						data: item.chartData.legendData,
+					},
+					grid: {
+						left: '1%',
+						right: '2%',
+						bottom: '1%',
+						containLabel: true,
+					},
+					toolbox: {
+						feature: {
+							saveAsImage: {},
+						},
+					},
+					xAxis: {
+						type: 'category',
+						splitLine: {
+							show: false,
+						},
+						data: item.chartData.xAxisData,
+						axisLabel: {
+							padding: [3, 3, 3, 3],
+							textStyle: {
+								color: 'black',
+							},
+							formatter: function (v) {
+								// 时间格式进行转化
+								if( v.indexOf("-") > 0 ){
+									var date = new Date(v);
+									return `${date.getFullYear()}-${('0' + date.getMonth()).slice(-2)}-${('0' + date.getDay()).slice(-2)} ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}:${('0' + date.getSeconds()).slice(-2)}`;
+								}
+								return v
+							},
+						},
+					},
+					yAxis: {
+						type: 'value',
+						axisLabel: {
+							textStyle: {
+								color: 'black',
+							},
+							formatter: function (value) {
+								return handleUnit({ unit: item.unit, value: value });
+							},
+						},
+					},
+					series: item.chartData.dataSource,
+				};
+			}
+			if (item.unit === 'B/s' || item.unit === 'B') {
+				options.tooltip.formatter = function (params) {
+					var result = params[0].name + '<br>';
+					params.forEach(function (item) {
+						var value = handleUnit({ value: item.value, unit: item.unit });
+						result += item.seriesName + ': ' + value + '</br>';
+					});
+					return result;
+				};
+			}
+			myChart.setOption(options);
+		}
+	}
+
+	// 单位转换
+	function handleUnit(obj){
+		var unitUp = obj.unit.toUpperCase(), val = obj.value, str = '';
+		var rateUnit =  ['B/S', 'KB/S', 'MB/S', 'GB/S', 'TB/S', 'PB/S', 'EB/S', 'ZB/S', 'YB/S'];
+		var capacityUnit = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+		if (unitUp === 'NUMBER') {
+			return val;
+		} else if (unitUp === '%') {
+			return `${val} ${unitUp}`;
+		} else if( rateUnit.indexOf(unitUp) > -1 || capacityUnit.indexOf(unitUp) > -1) {
+			if (unitUp === 'B' || unitUp === 'B/s') {
+				str = getSizeByByte({value: val, unit: unitUp});
+			} else if(unitUp === 'KB' || unitUp === 'KB/s') {
+				str = getSizeByByte({value: parseFloat(val) * 1024, unit: unitUp});
+			} else if(unitUp === 'MB'  || unitUp === 'MB/s') {
+				str = getSizeByByte({value: parseFloat(val) * 1024 * 1024, unit: unitUp});
+			} else if(unitUp === 'GB' || unitUp === 'GB/s') {
+				str = getSizeByByte({value: parseFloat(val) * 1024 * 1024 * 1024, unit: unitUp});
+			} else if(unitUp === 'TB' || unitUp === 'TB/s') {
+				str = getSizeByByte({value: parseFloat(val) * 1024 * 1024 * 1024 * 1024, unit: unitUp});
+			} else if(unitUp === 'PB' || unitUp === 'PB/s') {
+				str = getSizeByByte({value: parseFloat(val) * 1024 * 1024 * 1024 * 1024 * 1024, unit: unitUp});
+			} else {
+				str = val;
+			}
+			return `${str} ${unitUp}`;
+		} else {
+			str = `${val}${unitUp}`;
+			return str;
+		}
+	};
+
+	// 处理单位转换
+	function getSizeByByte(obj) {
+		// obj: { value: string/number, unit: 默认B, base: 进率默认124 }
+		// 默认传过来的是字节，也可以传单位此处进行转换
+		var rateUnit =  ['B/S', 'KB/S', 'MB/S', 'GB/S', 'TB/S', 'PB/S', 'EB/S', 'ZB/S', 'YB/S'];
+		var capacityUnit = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+		var sizes = [];
+		if ( obj.unit && obj.unit.indexOf("/S") > -1) {
+			sizes = rateUnit;
+		} else {
+			sizes = capacityUnit;
+		}
+		let bytes = obj.value;
+		if (typeof bytes === 'string') {
+			bytes = parseFloat(bytes);
+		}
+		if (!bytes || bytes <= 0) {
+			return '0 B';
+		};
+		const k = obj.base || 1024; // or 1000
+		if (obj.unit) {
+			const index = sizes.indexOf(obj.unit);
+			if (index > -1) {
+				bytes *= k ** index;
+			}
+		}
+		const i = Math.floor(Math.log(bytes) / Math.log(k));
+		if (!sizes[i]) {
+			// 若不在此单位数组内，如比单位B还小，则返回原数据
+			return `${obj.value} ${obj.unit}`;
+		}
+		return `${(bytes / k**i).toFixed(2)} ${sizes[i]}`;
+	};
+</script>
+</body>
+
+</html>

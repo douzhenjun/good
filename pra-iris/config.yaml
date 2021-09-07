@@ -1,0 +1,10 @@
+name: "pra-iris"
+port: 8080
+
+data_base:
+  - drive: "postgres"
+    host: "172.16.99.34"
+    port: "54320"
+    user: "postgres"
+    pwd: "ztesoft123"
+    database: "test1"

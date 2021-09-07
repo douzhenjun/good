@@ -1,0 +1,318 @@
+syntax = "proto3";
+
+package api;
+
+
+// CMDSvc -- icse gRPC service
+service CMDSvc {
+  rpc AddPushServer(PushServer) returns (BOOL) {}    //block function. need wait result.
+  rpc RemovePushServer(ID) returns (BOOL) {} //block function. need wait result.
+  rpc ListPushServer(Empty) returns (stream PushServer) {} //block function. list all push-servers
+
+  rpc AddScript(CmdScript) returns (BOOL) {}  //block function. need wait result.
+  rpc RemoveScript(ID) returns (BOOL) {} //block function. need wait result.
+  rpc ListScript(Empty) returns (stream CmdScript) {} //block function. need wait result.
+
+  //compare md5,  -1 -- Script non-existed , -2 -- md5 error
+  rpc RunScriptNoWait(TaskScriptOnHost) returns (ID) {}  
+
+  rpc DeployAgentNoWait(TaskDeployAgent) returns (ID) {}
+
+  // Start a command and immediately return its ID. 
+  rpc RunCmdLineNoWait(TaskCommandLine) returns (ID) {}
+  rpc ScpFileNoWait(TaskScpFile) returns (ID) {}
+
+  // Wait for a command to complete or be stopped, reap it, and return its final status.
+  rpc Wait(ID) returns (Status) {}
+
+  // Get the status of a command if it hasn't been reaped by calling Wait or Stop.
+  rpc GetStatus(ID) returns (Status) {}
+
+  // Stop then reap a command by sending it a SIGTERM signal.
+  rpc Stop(ID) returns (Empty) {} 
+
+  // Return a list of all running (not reaped) commands by ID.
+  rpc Running(Empty) returns (stream ID) {}
+
+  rpc StartRecurringTask(TaskRecurring) returns (ID) {}
+  //rpc StopRecurringTask(ID) returns (Empty) {}
+
+  // AccessHttp -- a block function with timeout
+  rpc AccessHttp(HttpRequest) returns (HttpResponse) {}
+
+  // VerifyCluster
+  //AddPlanVerifyCluster -- add toml plan. return true if config in plan verified.
+  rpc AddPlanVerifyCluster(TomlConf) returns (BOOL) {}   //block function
+  //RemovePlanVerifyCluster -- input plan ID
+  rpc RemovePlanVerifyCluster(ID) returns (BOOL) {} //block func
+  //RunTaskVerifyClusterNoWait -- non-block func.
+  //using GetStatus to get on-way status, or Wait to get final status.
+  //or Stop to interrupt task.
+  //input plan ID and push tags, return task ID
+  rpc RunTaskVerifyClusterNoWait(TaskVerifyCluster) returns (ID) {}  
+
+  // EnsureICSEBDA -- unblock function, use Wait or pushserver to get final results.
+  // all config details shoule be define a toml file, then load content
+  // and send as a only parameter. the sample of toml file is in 
+  // bin/tools/batchdeployagents/
+  rpc EnsureICSEBDANoWait(TomlConf) returns(ID) {}  
+
+  // unblock function. Please use Wait() or GetStatus() as other type tasks.
+  rpc RunWorkFlowNoWait(TaskWorkFlow) returns (ID){}
+
+  //two unblock functions to pause and resume triggers of 
+  //all waiting nodes of a workflow
+  rpc PauseWorkFlow(ID) returns (BOOL) {}
+  rpc ResumeWorkFlow(ID) returns (BOOL) {}
+  //WriteWFBlackBoard -- write KVs to BlackBoard of a running TaskWorkFlow
+  //to adjust flow
+  rpc WriteWFBlackBoard(BlackBoardKVs) returns (BOOL) {}
+}
+
+//The potential rules for Tags or tags:
+//1. the defualt string without any additonal types means pushserver tag
+//2. the supported additional types till now:
+//   [PUSHSERVER]  -- example tags = ["[PUSHSERVER]MonitorSrv203", "[PUSHSERVER]AlertSrv200"]
+//                    or without additional type tags = ["MonitorSrv203", "AlertSrv200"]
+//   [PLACEHOLDER] -- example tags = ["[PLACEHOLDER]{%VAR_ORASID%}=cc", "[PUSHSERVER]MonitorSrv203"]]
+
+enum TASKTYPE {
+  TASKCMDLINE       = 0;
+  TASKCMDSCRIPT     = 1;
+  TASKDEPLOYAGENT   = 2;
+  TASKSCPFILE       = 3;
+  TASKRECURRING     = 4;
+  TASKVERIFYCLUSTER = 5;
+  TASKBDEPLOYAGENTS = 6;
+  TASKWORKFLOW      = 7;
+}
+
+//Task of deploying agent. critical task, no timeout.
+message TaskDeployAgent {
+  string      IPorHostName = 1;   //hostname or ip
+  string              user = 2;
+  string          password = 3;
+  repeated string     Tags = 4;
+  int32               Port = 5;   //default = common.PortOfSysSSH
+}
+
+message TaskCommandLine {
+  string           ExecHost = 1;
+  string            CmdLine = 2;
+  int64             timeout = 3;
+  repeated string      Tags = 4;
+  string             OSUser = 5;
+}
+
+
+message CmdScript {
+  string            ID = 1;
+  string       content = 2;
+  string           md5 = 3;
+}
+
+message TaskScriptOnHost {
+  string      ExecHost = 1;
+  string            ID = 2;
+  int64        timeout = 3; 
+  string           md5 = 4;  
+  repeated string tags = 5;
+  string        OSUser = 6;
+}
+
+enum COPYDIRECTION {
+  COPYTO      = 0;
+  COPYFROM    = 1;
+}
+
+message TaskScpFile {
+  COPYDIRECTION   CopyDirection = 1;
+  string             RemoteHost = 2;
+  string                SrcFile = 3;
+  string                DstFile = 4;
+  int64                 timeout = 5;
+  repeated string          tags = 6;
+}
+
+message Empty {}
+
+enum STATE {
+  UNKNOWN     = 0;
+  PENDING     = 1;
+  RUNNING     = 2;
+  COMPLETE    = 3;
+  STOPPED     = 4;
+  TIMEOUT     = 6;
+  SSHNETFAIL  = 7;
+  TASKFAIL    = 8;
+  TASKNOEXIST = 9;
+  WAITING     = 10;
+}
+
+
+message Status {
+  string               ID = 1;
+  STATE             State = 2;
+  int64         StartTime = 3;
+  int64          StopTime = 4;
+  string           Stdout = 5;
+  string           Stderr = 6;
+  int32          ExitCode = 7;
+  repeated string TaskErr = 8;
+}
+
+message PushServer {
+  string          ID = 1;
+  string          Type = 2;   //"RESTful"
+  string        Server = 3;
+  repeated string Tags = 4;
+}
+
+message BOOL {
+  bool       Result = 1;
+}
+
+message ID {
+  string ID = 1;
+}
+
+enum RETURNLINEMSGTYPE {
+  STDOUT      = 0;
+  STDERR      = 1;
+  TASKSTATE   = 2;
+  EXITCODE    = 3;
+  TASKERR     = 4;
+  EOF         = 5;
+  VERIFYITEM  = 6;
+  BATCHDEPLOY = 7;
+  WORKFLOW    = 8;
+}
+
+message CmdReturnLine {
+  string              ID = 1;
+  RETURNLINEMSGTYPE Type = 2;
+  string            Line = 3;
+  int64             time = 4;
+  int64             SNum = 5;
+}
+
+message TaskRecurring {
+  repeated string   TargetHosts = 1;
+  string                CmdLine = 2;
+  string         ExpectedResult = 3;
+
+  //false -- defalt report abnormal list; true -- report normal list
+  bool         ReportNormalList = 4;  
+  int64                 timeout = 5;
+  int64          intervalSecond = 6;
+  repeated string          tags = 7;
+}
+
+message TomlConf {
+//TomlContent must conform the definition of VerifyngCluster in
+//specialtasks/verifyingcluster/verifyingcluster.go
+//or EnsureICSEBDA Batch Deploying Agents of ICSE
+  string     TomlContent = 1;
+}
+
+message TaskVerifyCluster {
+  string          PlanID = 1;
+  int64       TimeoutMin = 2;
+  repeated string   tags = 3;
+}
+
+message KV {
+  string     Key = 1;
+  string   Value = 2;
+}
+
+enum HTTPMETHOD {
+  GET      = 0;
+  POST     = 1;
+  PUT      = 2;
+  DELETE   = 3;
+  OPTIONS  = 4;
+  HEAD     = 5;
+  TRACE    = 6;
+  CONNECT  = 7;
+}
+
+message HttpRequest {
+  HTTPMETHOD     Method = 1;
+  string            Url = 2;
+  string          Proto = 3;     //default "HTTP/1.1"
+  repeated KV    Header = 4;
+  string           Body = 5;
+  int64      TimeoutSec = 6;
+}
+
+message HttpResponse {
+  string         Status = 1;
+  string          Proto = 2;
+  repeated KV    Header = 3;
+  string           Body = 4;
+}
+
+
+//symbol *** in comment means not showing in definition or init periods
+message WorkFlowSchema {
+  string ID                   = 1;
+  BNode BeginNode             = 2;
+  repeated WNode WorkerNodes  = 3;
+  ENode EndNode               = 4;
+  //three kinds of Node: 
+  //BNode -- to begin the workflow with inputs (Outputs to WNodes)
+  message BNode {
+    map<string, string> OutKVs             = 1;
+  }
+  //WNode -- the workers to do jobs in hosts
+  message WNode {
+    string ID                          = 1;
+    string TriggerExpression           = 2;
+    TaskCommandLine NodeTask           = 3;
+    //PlaceHolderFromBB -- Placeholder in script
+    //which will be replace with its value by key from BlackBoard 
+    //when the node is triggered.
+    repeated string PlaceHolderFromBB  = 4;
+    Status Status                      = 5;     //***
+    map<string, string> OutKVs         = 6;
+    //write to BlackBoard when failed in cases of network issues or timeout, etc.
+    //notice: this doesn't include application failures which should be handle in 
+    //scripts of NodeTask
+    map<string, string> FailedKVs      = 7;
+    //ReEntryWaitingSeconds -- for reenter this node. engine will wait 
+    //ReEntryWaitingSeconds seconds after finishing or 
+    //failing this node and set node state to waiting and move Status to
+    //ReEnterHistory.
+    //if ReEntryWaitingSeconds <= 0, no reenter this node. default is 0
+    int64 ReEnterWaitingSeconds        = 8;
+    repeated Status ReEnterHistory     = 9;     //***
+    string NodeTaskID                  = 10;    //***
+  }
+  //ENode -- to end the workflow with final result
+  message ENode {
+    string TriggerExpression           = 1;
+    string ResultExpression            = 2;
+    string Result                      = 3;      //***
+    STATE State                        = 4;      //***
+  } 
+}
+
+// first using Schema, if nil, using TomlConf to fill Schema
+message TaskWorkFlow {
+  WorkFlowSchema Schema                    = 1;
+  bytes TomlConf                           = 2;
+  int64 TimeoutMin                         = 3;
+  //tags -- used to set push servers
+  repeated string tags                     = 4;
+  //NoWaitingNodes -- those not be activated to wait to run (with STOPPED State)
+  repeated string NoWaitingNodes            = 5;
+  //OverrideHalfWayKVs -- is prior to workernode.HalfWayKVs. and override it.
+  //default OverrideHalfWayKVs is empty, workernode.HalfWayKVs will work.
+  map<string, string> OverrideHalfWayKVs    = 6;
+}
+
+message BlackBoardKVs {
+  ID TWFID                   = 1;
+  map<string, string> KVs    = 2;
+}

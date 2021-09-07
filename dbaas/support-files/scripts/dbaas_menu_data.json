@@ -1,0 +1,1937 @@
+{
+  "name": "dbaas",
+  "icon": "dbaas",
+  "desc": "DBaaS",
+  "descEn": "DBaaS",
+  "label": "business",
+  "subMenu": [
+    {
+      "name": "dbaas.overview",
+      "icon": "overview",
+      "desc": "总览",
+      "descEn": "Overview",
+      "component": [
+        {
+          "name": "dbaas.overview.base",
+          "desc": "基础信息",
+          "descEn": "Basic Data",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.overview.base",
+              "desc": "基础信息",
+              "descEn": "Basic Data",
+              "path": "/api/dbaas/home/baseinfo",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.user.list",
+          "desc": "租户列表",
+          "descEn": "User List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.user.list",
+              "desc": "租户列表",
+              "descEn": "User List",
+              "path": "/api/dbaas/user/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.list",
+          "desc": "实例列表",
+          "descEn": "Cluster List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.list",
+              "desc": "实例列表",
+              "descEn": "Cluster List",
+              "path": "/api/dbaas/cluster/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.pod.list",
+          "desc": "Pod列表",
+          "descEn": "Pod List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.pod.list",
+              "desc": "Pod列表",
+              "descEn": "Pod List",
+              "path": "/api/dbaas/cluster/pod/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.parameter.update",
+          "desc": "系统参数修改",
+          "descEn": "Update Parameter",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.parameter.update",
+              "desc": "系统参数修改",
+              "descEn": "Update Parameter",
+              "path": "/api/dbaas/parameter/update",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.init.add",
+          "desc": "初始化创建SC",
+          "descEn": "Add Initialize SC",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.init.add",
+              "desc": "初始化创建SC",
+              "descEn": "Add Initialize SC",
+              "path": "/api/dbaas/storage/init/add",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.host.tag",
+          "desc": "标签管理",
+          "descEn": "Tag Management",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.host.tag",
+              "desc": "标签管理",
+              "descEn": "Tag Management",
+              "path": "/api/dbaas/host/tag",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.host.operator",
+          "desc": "部署Operator",
+          "descEn": "Deploy Operator",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.host.operator",
+              "desc": "部署Operator",
+              "descEn": "Deploy Operator",
+              "path": "/api/dbaas/host/operator",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.overview.chart",
+          "desc": "图标数据",
+          "descEn": "Icon data",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.overview.chart",
+              "desc": "图标数据",
+              "descEn": "Icon data",
+              "path": "/api/dbaas/home/chart",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.overview.threed",
+          "desc": "3D数据",
+          "descEn": "ThreeD data",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.overview.threed",
+              "desc": "3D数据",
+              "descEn": "ThreeD data",
+              "path": "/api/dbaas/home/threed",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.type.list",
+          "desc": "镜像类型列表",
+          "descEn": "Image List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.type.list",
+              "desc": "镜像类型列表",
+              "descEn": "Image List",
+              "path": "/api/dbaas/image/types",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.parameter.list",
+          "desc": "系统参数列表",
+          "descEn": "Parameter List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.parameter.list",
+              "desc": "系统参数列表",
+              "descEn": "Parameter List",
+              "path": "/api/dbaas/parameter/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.init.add",
+          "desc": "配置镜像",
+          "descEn": "Config Image",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.init.add",
+              "desc": "配置镜像",
+              "descEn": "Config Image",
+              "path": "/api/dbaas/image/init/add",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.list",
+          "desc": "存储列表",
+          "descEn": "Storage List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.list",
+              "desc": "存储列表",
+              "descEn": "Storage List",
+              "path": "/api/dbaas/storage/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.init.save",
+          "desc": "初始化保存",
+          "descEn": "Init Save",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.init.save",
+              "desc": "初始化保存",
+              "descEn": "Init Save",
+              "path": "/api/dbaas/init/save",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.init.list",
+          "desc": "初始化查询",
+          "descEn": "Init List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.init.list",
+              "desc": "初始化查询",
+              "descEn": "Init List",
+              "path": "/api/dbaas/init/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.init.deploy",
+          "desc": "初始化部署",
+          "descEn": "Init Deploy",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.init.deploy",
+              "desc": "初始化部署",
+              "descEn": "Init Deploy",
+              "path": "/api/dbaas/init/deploy",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.operator.status",
+          "desc": "部署状态",
+          "descEn": "Operator Status",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.operator.status",
+              "desc": "部署状态",
+              "descEn": "Operator Status",
+              "path": "/api/dbaas/host/operator/status",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.alarm.log.list",
+          "desc": "告警项日志列表",
+          "descEn": "Alarm Log List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.alarm.log.list",
+              "path": "/api/alarm/alarmresult/list",
+              "method": "GET",
+              "priority": "list",
+              "desc": "告警项日志列表",
+              "descEn": "Alarm Log List"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.init.skip",
+          "desc": "跳过初始化",
+          "descEn": "Skip Init",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.init.skip",
+              "desc": "跳过初始化",
+              "descEn": "Skip Init",
+              "path": "/api/dbaas/init/skip",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.init.status",
+          "desc": "跳过信息查询",
+          "descEn": "Init Status",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.init.status",
+              "desc": "跳过信息查询",
+              "descEn": "Init Status",
+              "path": "/api/dbaas/init/status",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.user",
+      "icon": "user",
+      "desc": "租户",
+      "descEn": "User",
+      "component": [
+        {
+          "name": "dbaas.user.list",
+          "desc": "租户列表",
+          "descEn": "User List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.user.list",
+              "desc": "租户列表",
+              "descEn": "User List",
+              "path": "/api/dbaas/user/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.selfUser.list",
+          "desc": "非root租户列表",
+          "descEn": "User List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.selfUser.list",
+              "desc": "非root租户列表",
+              "descEn": "User List",
+              "path": "/api/dbaas/cluster/userinfo",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.user.add",
+          "desc": "租户新增",
+          "descEn": "Add User",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.user.add",
+              "desc": "租户新增",
+              "descEn": "Add User",
+              "path": "/api/dbaas/user/add",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.user.update",
+          "desc": "租户修改",
+          "descEn": "Update User",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.user.update",
+              "desc": "租户修改",
+              "descEn": "Update User",
+              "path": "/api/dbaas/user/update",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.user.delete",
+          "desc": "租户删除",
+          "descEn": "Delete User",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.user.delete",
+              "desc": "租户删除",
+              "descEn": "Delete User",
+              "path": "/api/dbaas/user/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.user.operate",
+          "desc": "租户启用/禁用",
+          "descEn": "Enable/Disable User",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.user.operate",
+              "desc": "租户启用/禁用",
+              "descEn": "Enable/Disable User",
+              "path": "/api/dbaas/user/operate",
+              "method": "PATCH",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.user.pwdkey.reset",
+          "desc": "租户重置密码",
+          "descEn": "Reset User Secret",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.user.pwdkey.reset",
+              "desc": "租户重置密码",
+              "descEn": "Reset User Secret",
+              "path": "/api/dbaas/user/pwdkey/reset",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.list",
+          "desc": "实例列表",
+          "descEn": "Cluster List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.list",
+              "desc": "实例列表",
+              "descEn": "Cluster List",
+              "path": "/api/dbaas/cluster/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.list",
+          "desc": "存储列表",
+          "descEn": "Storage List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.list",
+              "desc": "存储列表",
+              "descEn": "Storage List",
+              "path": "/api/dbaas/storage/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.host",
+      "icon": "host",
+      "desc": "节点",
+      "descEn": "Host",
+      "component": [
+        {
+          "name": "dbaas.host.list",
+          "desc": "节点列表",
+          "descEn": "Host List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.host.list",
+              "desc": "节点列表",
+              "descEn": "Host List",
+              "path": "/api/dbaas/host/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.host.tag",
+          "desc": "标签管理",
+          "descEn": "Tag Management",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.host.tag",
+              "desc": "标签管理",
+              "descEn": "Tag Management",
+              "path": "/api/dbaas/host/tag",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.host.operator",
+          "desc": "部署Operator",
+          "descEn": "Deploy Operator",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.host.operator",
+              "desc": "部署Operator",
+              "descEn": "Deploy Operator",
+              "path": "/api/dbaas/host/operator",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.host.operator.list",
+          "desc": "部署Operator",
+          "descEn": "Deploy Operator",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.host.operator.list",
+              "desc": "部署Operator",
+              "descEn": "Deploy Operator",
+              "path": "/api/dbaas/host/operator",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.host.log",
+          "desc": "部署日志",
+          "descEn": "Deploy Log",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.host.log",
+              "desc": "部署日志",
+              "descEn": "Deploy Log",
+              "path": "/api/dbaas/host/log",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.list",
+          "desc": "存储列表",
+          "descEn": "Storage List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.list",
+              "desc": "存储列表",
+              "descEn": "Storage List",
+              "path": "/api/dbaas/storage/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.operator.status",
+          "desc": "部署状态",
+          "descEn": "Operator Status",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.operator.status",
+              "desc": "部署状态",
+              "descEn": "Operator Status",
+              "path": "/api/dbaas/host/operator/status",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.cluster",
+      "icon": "cluster",
+      "desc": "实例",
+      "descEn": "Cluster",
+      "component": [
+        {
+          "name": "dbaas.cluster.list",
+          "desc": "实例列表",
+          "descEn": "Cluster List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.list",
+              "desc": "实例列表",
+              "descEn": "Cluster List",
+              "path": "/api/dbaas/cluster/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.add",
+          "desc": "实例新增",
+          "descEn": "Add Cluster",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.add",
+              "desc": "实例新增",
+              "descEn": "Add Cluster",
+              "path": "/api/dbaas/cluster/add",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.update",
+          "desc": "实例修改",
+          "descEn": "Update Cluster",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.update",
+              "desc": "实例修改",
+              "descEn": "Update Cluster",
+              "path": "/api/dbaas/cluster/update",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.delete",
+          "desc": "实例删除",
+          "descEn": "Delete Cluster",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.delete",
+              "desc": "实例删除",
+              "descEn": "Delete Cluster",
+              "path": "/api/dbaas/cluster/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.enable",
+          "desc": "实例启用",
+          "descEn": "Enable Cluster",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.enable",
+              "desc": "实例启用",
+              "descEn": "Enable Cluster",
+              "path": "/api/dbaas/cluster/enable",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.disable",
+          "desc": "实例禁用",
+          "descEn": "Disable Cluster",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.disable",
+              "desc": "实例禁用",
+              "descEn": "Disable Cluster",
+              "path": "/api/dbaas/cluster/disable",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.operate",
+          "desc": "实例启动/停止",
+          "descEn": "Start/Stop Cluster",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.operate",
+              "desc": "实例启动/停止",
+              "descEn": "Start/Stop Cluster",
+              "path": "/api/dbaas/cluster/operate",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.apply.mysql",
+          "desc": "应用MySQL参数",
+          "descEn": "Apply MySQL Parameters",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.apply.mysql",
+              "desc": "应用MySQL参数",
+              "descEn": "Apply MySQL Parameters",
+              "path": "/api/dbaas/cluster/config/apply",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.pod.list",
+          "desc": "Pod列表",
+          "descEn": "Pod List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.pod.list",
+              "desc": "Pod列表",
+              "descEn": "Pod List",
+              "path": "/api/dbaas/cluster/pod/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.pod.detail",
+          "desc": "Pod性能数据",
+          "descEn": "Pod Detail",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.pod.detail",
+              "desc": "Pod性能数据",
+              "descEn": "Pod Detail",
+              "path": "/api/dbaas/pod/detail",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.pod.switch",
+          "desc": "Pod切换",
+          "descEn": "Switch Pod",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.pod.switch",
+              "desc": "Pod切换",
+              "descEn": "Switch Pod",
+              "path": "/api/dbaas/pod/switch",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.pod.log",
+          "desc": "Pod日志",
+          "descEn": "Pod Log",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.pod.log",
+              "desc": "Pod日志",
+              "descEn": "Pod Log",
+              "path": "/api/dbaas/pod/log",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.param",
+          "desc": "镜像参数",
+          "descEn": "Image Parameter",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.param",
+              "desc": "镜像参数",
+              "descEn": "Image Parameter",
+              "path": "/api/dbaas/image/param",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.list",
+          "desc": "镜像列表",
+          "descEn": "Image List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.list",
+              "desc": "镜像列表",
+              "descEn": "Image List",
+              "path": "/api/dbaas/image/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.selfUser.list",
+          "desc": "非root租户列表",
+          "descEn": "User List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.selfUser.list",
+              "desc": "非root租户列表",
+              "descEn": "User List",
+              "path": "/api/dbaas/cluster/userinfo",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.param.list",
+          "desc": "实例详情页-参数列表",
+          "descEn": "Param List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.param.list",
+              "desc": "实例详情页-参数列表",
+              "descEn": "Param List",
+              "path": "/api/dbaas/cluster/param/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.parameter.edit",
+          "desc": "实例详情页-参数修改",
+          "descEn": "Modify Param",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.cluster.parameter.edit",
+              "desc": "实例详情页-参数修改",
+              "descEn": "Modify Param",
+              "path": "/api/dbaas/cluster/parameter/edit",
+              "method": "POST",
+              "priority": "curd"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.list",
+          "desc": "备份列表",
+          "descEn": "Backup List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.list",
+              "desc": "备份列表",
+              "descEn": "Backup List",
+              "path": "/api/dbaas/backup/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.cycle.delete",
+          "desc": "备份周期删除",
+          "descEn": "Delete Backup Cycle",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.cycle.delete",
+              "desc": "备份周期删除",
+              "descEn": "Delete Backup Cycle",
+              "path": "/api/dbaas/backup/cycle/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.add",
+          "desc": "备份新增",
+          "descEn": "Add Backup",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.add",
+              "desc": "备份新增",
+              "descEn": "Add Backup",
+              "path": "/api/dbaas/backup/create",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.storage.type",
+          "desc": "备份存储类型列表",
+          "descEn": "Backup Storage Type List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.storage.type",
+              "desc": "备份存储类型列表",
+              "descEn": "Backup Storage Type List",
+              "path": "/api/dbaas/backup/storage/type",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.recovery",
+          "desc": "恢复实例",
+          "descEn": "Recovery Backup",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.recovery",
+              "desc": "恢复实例",
+              "descEn": "Recovery Backup",
+              "path": "/api/dbaas/backup/recovery",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.delete",
+          "desc": "备份删除",
+          "descEn": "Delete Backup",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.delete",
+              "desc": "备份删除",
+              "descEn": "Delete Backup",
+              "path": "/api/dbaas/backup/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.log",
+          "desc": "备份日志",
+          "descEn": "Backup Log",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.log",
+              "desc": "备份日志",
+              "descEn": "Backup Log",
+              "path": "/api/dbaas/backup/log",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.event",
+          "desc": "备份事件",
+          "descEn": "Backup Event",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.event",
+              "desc": "备份事件",
+              "descEn": "Backup Event",
+              "path": "/api/dbaas/backup/event",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.cluster.nodeport.check",
+          "desc": "nodeport 可用性检测",
+          "descEn": "NodePort check",
+          "priority": "curd",
+          "permission": [
+            {
+              "name": "dbaas.cluster.nodeport.check",
+              "desc": "nodeport 可用性检测",
+              "descEn": "NodePort check",
+              "path": "/api/dbaas/cluster/nodeport/check",
+              "method": "POST",
+              "priority": "curd"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.storage",
+      "icon": "storage",
+      "desc": "存储",
+      "descEn": "Storage",
+      "component": [
+        {
+          "name": "dbaas.storage.list",
+          "desc": "存储列表",
+          "descEn": "Storage List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.list",
+              "desc": "存储列表",
+              "descEn": "Storage List",
+              "path": "/api/dbaas/storage/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.add",
+          "desc": "存储新增",
+          "descEn": "Add Storage",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.add",
+              "desc": "存储新增",
+              "descEn": "Add Storage",
+              "path": "/api/dbaas/storage/add",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.update",
+          "desc": "存储修改",
+          "descEn": "Update Storage",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.update",
+              "desc": "存储修改",
+              "descEn": "Update Storage",
+              "path": "/api/dbaas/storage/update",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.delete",
+          "desc": "存储删除",
+          "descEn": "Delete Storage",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.delete",
+              "desc": "存储删除",
+              "descEn": "Delete Storage",
+              "path": "/api/dbaas/storage/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.user.assign",
+          "desc": "分配租户",
+          "descEn": "Assign User",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.user.assign",
+              "desc": "分配租户",
+              "descEn": "Assign User",
+              "path": "/api/dbaas/storage/user/assign",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.pv.list",
+          "desc": "PV列表",
+          "descEn": "PV List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.pv.list",
+              "desc": "PV列表",
+              "descEn": "PV List",
+              "path": "/api/dbaas/storage/pv/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.pv.restore",
+          "desc": "生成MySQL",
+          "descEn": "Restore MySQL",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.pv.restore",
+              "desc": "生成MySQL",
+              "descEn": "Restore MySQL",
+              "path": "/api/dbaas/storage/restore/pv",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.pv.add",
+          "desc": "PV新增",
+          "descEn": "Add PV",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.pv.add",
+              "desc": "PV新增",
+              "descEn": "Add PV",
+              "path": "/api/dbaas/storage/pv/add",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.storage.pv.delete",
+          "desc": "PV删除",
+          "descEn": "Delete PV",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.storage.pv.delete",
+              "desc": "PV删除",
+              "descEn": "Delete PV",
+              "path": "/api/dbaas/storage/pv/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.user.list",
+          "desc": "租户列表",
+          "descEn": "User List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.user.list",
+              "desc": "租户列表",
+              "descEn": "User List",
+              "path": "/api/dbaas/user/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.image",
+      "icon": "image",
+      "desc": "镜像",
+      "descEn": "Image",
+      "component": [
+        {
+          "name": "dbaas.image.list",
+          "desc": "镜像列表",
+          "descEn": "Image List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.list",
+              "desc": "镜像列表",
+              "descEn": "Image List",
+              "path": "/api/dbaas/image/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.param",
+          "desc": "镜像参数",
+          "descEn": "Image Parameter",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.param",
+              "desc": "镜像参数",
+              "descEn": "Image Parameter",
+              "path": "/api/dbaas/image/param",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.add",
+          "desc": "镜像新增",
+          "descEn": "Add Image",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.add",
+              "desc": "镜像新增",
+              "descEn": "Add Image",
+              "path": "/api/dbaas/image/add",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.update",
+          "desc": "镜像修改",
+          "descEn": "Update Image",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.update",
+              "desc": "镜像修改",
+              "descEn": "Update Image",
+              "path": "/api/dbaas/image/update",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.operator",
+          "desc": "应用Operator镜像",
+          "descEn": "Apply Operator Image",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.operator",
+              "desc": "应用Operator镜像",
+              "descEn": "Apply Operator Image",
+              "path": "/api/dbaas/host/operator/image",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.delete",
+          "desc": "镜像删除",
+          "descEn": "Delete Image",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.delete",
+              "desc": "镜像删除",
+              "descEn": "Delete Image",
+              "path": "/api/dbaas/image/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.push",
+          "desc": "镜像Push",
+          "descEn": "Push Image",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.push",
+              "desc": "镜像Push",
+              "descEn": "Push Image",
+              "path": "/api/dbaas/image/push",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.image.type.list",
+          "desc": "镜像类型列表",
+          "descEn": "Image List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.image.type.list",
+              "desc": "镜像类型列表",
+              "descEn": "Image List",
+              "path": "/api/dbaas/image/types",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.parameter.list",
+          "desc": "系统参数列表",
+          "descEn": "Parameter List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.parameter.list",
+              "desc": "系统参数列表",
+              "descEn": "Parameter List",
+              "path": "/api/dbaas/parameter/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.backup",
+      "icon": "backup",
+      "desc": "备份恢复",
+      "descEn": "Backup",
+      "component": [
+        {
+          "name": "dbaas.backup.list",
+          "desc": "备份列表",
+          "descEn": "Backup List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.list",
+              "desc": "备份列表",
+              "descEn": "Backup List",
+              "path": "/api/dbaas/backup/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.add",
+          "desc": "备份新增",
+          "descEn": "Add Backup",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.add",
+              "desc": "备份新增",
+              "descEn": "Add Backup",
+              "path": "/api/dbaas/backup/create",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.recovery",
+          "desc": "恢复实例",
+          "descEn": "Recovery Backup",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.recovery",
+              "desc": "恢复实例",
+              "descEn": "Recovery Backup",
+              "path": "/api/dbaas/backup/recovery",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.delete",
+          "desc": "备份删除",
+          "descEn": "Delete Backup",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.delete",
+              "desc": "备份删除",
+              "descEn": "Delete Backup",
+              "path": "/api/dbaas/backup/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.log",
+          "desc": "备份日志",
+          "descEn": "Backup Log",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.log",
+              "desc": "备份日志",
+              "descEn": "Backup Log",
+              "path": "/api/dbaas/backup/log",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.event",
+          "desc": "备份事件",
+          "descEn": "Backup Event",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.event",
+              "desc": "备份事件",
+              "descEn": "Backup Event",
+              "path": "/api/dbaas/backup/event",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.storage.list",
+          "desc": "备份存储列表",
+          "descEn": "Backup Storage List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.storage.list",
+              "desc": "备份存储列表",
+              "descEn": "Backup Storage List",
+              "path": "/api/dbaas/backup/storage/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.storage.type",
+          "desc": "备份存储类型列表",
+          "descEn": "Backup Storage Type List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.storage.type",
+              "desc": "备份存储类型列表",
+              "descEn": "Backup Storage Type List",
+              "path": "/api/dbaas/backup/storage/type",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.storage.add",
+          "desc": "备份存储新增",
+          "descEn": "Add Backup Storage",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.storage.add",
+              "desc": "备份存储新增",
+              "descEn": "Add Backup Storage",
+              "path": "/api/dbaas/backup/storage/create",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.storage.delete",
+          "desc": "备份存储删除",
+          "descEn": "Delete Backup Storage",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.storage.delete",
+              "desc": "备份存储删除",
+              "descEn": "Delete Backup Storage",
+              "path": "/api/dbaas/backup/storage/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.storage.user",
+          "desc": "备份存储-分配租户",
+          "descEn": "Assign User",
+          "priority": "curd",
+          "permission": [
+            {
+              "name": "dbaas.backup.storage.user",
+              "desc": "备份存储-分配租户",
+              "descEn": "Assign User",
+              "path": "/api/dbaas/backup/storage/user",
+              "method": "POST",
+              "priority": "curd"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.backup.cycle.delete",
+          "desc": "备份周期删除",
+          "descEn": "Delete Backup Cycle",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.backup.cycle.delete",
+              "desc": "备份周期删除",
+              "descEn": "Delete Backup Cycle",
+              "path": "/api/dbaas/backup/cycle/delete",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.log",
+      "icon": "log",
+      "desc": "日志",
+      "descEn": "Log",
+      "component": [
+        {
+          "name": "dbaas.log.list",
+          "desc": "日志列表",
+          "descEn": "Log List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.log.list",
+              "desc": "日志列表",
+              "descEn": "Log List",
+              "path": "/api/dbaas/log/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.host.operator.list",
+          "desc": "部署Operator",
+          "descEn": "Deploy Operator",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.host.operator.list",
+              "desc": "部署Operator",
+              "descEn": "Deploy Operator",
+              "path": "/api/dbaas/host/operator",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.alarm.log",
+      "icon": "log",
+      "desc": "告警日志",
+      "descEn": "Log",
+      "component": [
+        {
+          "name": "dbaas.alarm.log.list",
+          "desc": "告警项日志列表",
+          "descEn": "Alarm Log List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.alarm.log.list",
+              "path": "/api/alarm/alarmresult/list",
+              "method": "GET",
+              "priority": "list",
+              "desc": "告警项日志列表",
+              "descEn": "Alarm Log List"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.alarm.level.list",
+          "desc": "告警项级别列表",
+          "descEn": "Alarm Level List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.alarm.level.list",
+              "path": "/api/alarm/alarmlevel/list",
+              "method": "GET",
+              "priority": "list",
+              "desc": "告警项级别列表",
+              "descEn": "Alarm Level List"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.statistic",
+      "icon": "statistic",
+      "desc": "统计",
+      "descEn": "Statistic",
+      "component": [
+        {
+          "name": "dbaas.statistic.list",
+          "desc": "实例统计列表",
+          "descEn": "Statistic List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.statistic.list",
+              "desc": "实例统计列表",
+              "descEn": "Statistic List",
+              "path": "/api/dbaas/statistics/cluster",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.quota.list",
+          "desc": "接口配额列表",
+          "descEn": "Quota List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.quota.list",
+              "desc": "接口配额列表",
+              "descEn": "Quota List",
+              "path": "/api/dbaas/quota/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.quota.update",
+          "desc": "接口配额修改",
+          "descEn": "Update Quota",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.quota.update",
+              "desc": "接口配额修改",
+              "descEn": "Update Quota",
+              "path": "/api/dbaas/quota/edit",
+              "method": "POST",
+              "priority": "list"
+            }
+          ]
+        },
+        {
+          "name": "dbaas.quota.usage.list",
+          "desc": "接口用量列表",
+          "descEn": "Quota Usage List",
+          "priority": "list",
+          "permission": [
+            {
+              "name": "dbaas.quota.usage.list",
+              "desc": "接口用量列表",
+              "descEn": "Quota Usage List",
+              "path": "/api/dbaas/quota/usage/list",
+              "method": "GET",
+              "priority": "list"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dbaas.system",
+      "icon": "system",
+      "desc": "系统",
+      "descEn": "System",
+      "subMenu": [
+        {
+          "name": "dbaas.system.parameter",
+          "icon": "parameter",
+          "desc": "系统参数",
+          "descEn": "Parameter",
+          "component": [
+            {
+              "name": "dbaas.parameter.list",
+              "desc": "系统参数列表",
+              "descEn": "Parameter List",
+              "priority": "list",
+              "permission": [
+                {
+                  "name": "dbaas.parameter.list",
+                  "desc": "系统参数列表",
+                  "descEn": "Parameter List",
+                  "path": "/api/dbaas/parameter/list",
+                  "method": "GET",
+                  "priority": "list"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.parameter.update",
+              "desc": "系统参数修改",
+              "descEn": "Update Parameter",
+              "priority": "list",
+              "permission": [
+                {
+                  "name": "dbaas.parameter.update",
+                  "desc": "系统参数修改",
+                  "descEn": "Update Parameter",
+                  "path": "/api/dbaas/parameter/update",
+                  "method": "POST",
+                  "priority": "list"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.parameter.reset",
+              "desc": "还原默认值",
+              "descEn": "Reset Parameter",
+              "priority": "list",
+              "permission": [
+                {
+                  "name": "dbaas.parameter.reset",
+                  "desc": "还原默认值",
+                  "descEn": "Reset Parameter",
+                  "path": "/api/dbaas/parameter/reset",
+                  "method": "POST",
+                  "priority": "list"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dbaas.system.combo",
+          "icon": "combo",
+          "desc": "套餐管理",
+          "descEn": "Package Management",
+          "component": [
+            {
+              "name": "dbaas.combo.list",
+              "desc": "套餐列表",
+              "descEn": "Package List",
+              "priority": "list",
+              "permission": [
+                {
+                  "name": "dbaas.combo.list",
+                  "desc": "套餐列表",
+                  "descEn": "Package List",
+                  "path": "/api/dbaas/combo/list",
+                  "method": "GET",
+                  "priority": "list"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.combo.add",
+              "desc": "套餐-新增",
+              "descEn": "Add",
+              "priority": "curd",
+              "permission": [
+                {
+                  "name": "dbaas.combo.add",
+                  "desc": "套餐-新增",
+                  "descEn": "Add",
+                  "path": "/api/dbaas/combo/add",
+                  "method": "POST",
+                  "priority": "curd"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.combo.edit",
+              "desc": "套餐-修改",
+              "descEn": "Update",
+              "priority": "curd",
+              "permission": [
+                {
+                  "name": "dbaas.combo.edit",
+                  "desc": "套餐-修改",
+                  "descEn": "Update",
+                  "path": "/api/dbaas/combo/edit",
+                  "method": "POST",
+                  "priority": "curd"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.combo.delete",
+              "desc": "套餐-删除",
+              "descEn": "Delete",
+              "priority": "curd",
+              "permission": [
+                {
+                  "name": "dbaas.combo.delete",
+                  "desc": "套餐-删除",
+                  "descEn": "Delete",
+                  "path": "/api/dbaas/combo/delete",
+                  "method": "POST",
+                  "priority": "curd"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.user.list",
+              "desc": "租户列表",
+              "descEn": "User List",
+              "priority": "list",
+              "permission": [
+                {
+                  "name": "dbaas.user.list",
+                  "desc": "租户列表",
+                  "descEn": "User List",
+                  "path": "/api/dbaas/user/list",
+                  "method": "GET",
+                  "priority": "list"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.combo.user",
+              "desc": "分配租户",
+              "descEn": "Config User",
+              "priority": "curd",
+              "permission": [
+                {
+                  "name": "dbaas.combo.user",
+                  "desc": "分配租户",
+                  "descEn": "Config User",
+                  "path": "/api/dbaas/combo/user",
+                  "method": "POST",
+                  "priority": "curd"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.combo.tag.list",
+              "desc": "特性列表",
+              "descEn": "Tags List",
+              "priority": "list",
+              "permission": [
+                {
+                  "name": "dbaas.combo.tag.list",
+                  "desc": "特性列表",
+                  "descEn": "Tags List",
+                  "path": "/api/dbaas/combo/tag/list",
+                  "method": "GET",
+                  "priority": "list"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.combo.tag.add",
+              "desc": "特性-新增",
+              "descEn": "Add",
+              "priority": "curd",
+              "permission": [
+                {
+                  "name": "dbaas.combo.tag.add",
+                  "desc": "特性-新增",
+                  "descEn": "Add",
+                  "path": "/api/dbaas/combo/tag/add",
+                  "method": "POST",
+                  "priority": "curd"
+                }
+              ]
+            },
+            {
+              "name": "dbaas.combo.tag.delete",
+              "desc": "特性-删除",
+              "descEn": "Delete",
+              "priority": "curd",
+              "permission": [
+                {
+                  "name": "dbaas.combo.tag.delete",
+                  "desc": "特性-删除",
+                  "descEn": "Delete",
+                  "path": "/api/dbaas/combo/tag/delete",
+                  "method": "POST",
+                  "priority": "curd"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

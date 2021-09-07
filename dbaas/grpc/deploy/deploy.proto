@@ -1,0 +1,76 @@
+syntax = "proto3";
+package config;
+
+service Config {
+    
+    // 主机初始化时,下发agent
+    rpc DeployAgent(TaskDeployAgent) returns (ID) {}
+
+    // 执行单行命令 
+    rpc RunCmdLineNoWait(TaskCommandLine) returns (ID) {}
+
+    // 拷贝文件
+    rpc ScpFileNoWait(TaskScpFile) returns (ID) {}
+    
+    // 查看任务执行状态
+    rpc GetStatus(ID) returns (Status) {}
+
+    // 等待
+    rpc Wait(ID) returns (Status) {}
+}
+
+
+message TaskDeployAgent {
+  string      IPorHostName = 1;   //hostname or ip
+  string              user = 2;
+  string          password = 3;
+  repeated string     Tags = 4;
+  int32               Port = 5;   //default = common.PortOfSysSSH
+}
+
+message TaskCommandLine {
+  string           ExecHost = 1;
+  string            CmdLine = 2;
+  int64             timeout = 3;
+  repeated string      Tags = 4;
+}
+
+message TaskScpFile {
+  string             RemoteHost = 1;
+  string                SrcFile = 2;
+  string                DstFile = 3;
+  int64                 timeout = 4;
+  repeated string          tags = 5;
+}
+
+
+message ID {
+  string ID = 1;
+}
+
+
+enum STATE {
+  UNKNOWN     = 0;
+  PENDING     = 1;
+  RUNNING     = 2;
+  COMPLETE    = 3;
+  STOPPED     = 4;
+  TIMEOUT     = 6;
+  SSHNETFAIL  = 7;
+  TASKFAIL    = 8;
+  TASKNOEXIST = 9;
+}
+
+
+message Status {
+  string               ID =  1;
+  string            State =  2;
+  int64         StartTime =  3;
+  int64          StopTime =  4;
+  string           Stdout = 5;
+  string           Stderr = 6;
+  int32          ExitCode = 7;
+  string          TaskErr = 8;
+}
+
+

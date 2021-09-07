@@ -1,0 +1,19 @@
+syntax = "proto3";
+package dbaasgrpcservice;
+
+service Dbaasgrpcservice {
+    // 1、获取pod列表信息
+    rpc GetPodInfoForAlarm(Empty) returns (Response) {}
+
+}
+
+message Empty {}
+
+message Response {
+  int32 errorno = 1;
+  string error_msg_en = 2;
+  string error_msg_zh = 3;
+  string data = 4;
+}
+
+

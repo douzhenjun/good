@@ -1,0 +1,28 @@
+name: "dbaas"
+port: "18160"
+grpc_server_port: "18161"
+#cmdb_address: "gw.zdcp.cn:18887"
+cmdb_address: "127.0.0.1:18887"
+mode: "dev"
+
+data_base:
+  - drive: "postgres"
+    #host: "pg.zdcp.cn"
+    host: "172.16.99.34"
+    port: "54320"
+    pwd: "ztesoft123"
+    user: "postgres"
+    database: "test2"
+#  - drive: "influxdb"
+#    host: "10.45.11.36"
+#    port: "32224"
+#    pwd: "zdcp"
+#    user: "admin"
+#    database: "zdcp"
+#
+#rabbitmq:
+#  - virtual_host: "agent_status"
+#    host: "127.0.0.1"
+#    port: "5672"
+#    pwd: "agent"
+#    user: "agent"

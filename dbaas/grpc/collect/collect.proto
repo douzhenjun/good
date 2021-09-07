@@ -1,0 +1,229 @@
+syntax = "proto3";
+package collect;
+
+service Collect {
+    
+    // 一、collect
+    // 1、官方内置采集项列表
+    rpc GetOfficialItemList(Empty) returns (Response) {}
+    
+    // 2、模型对象下的采集项列表
+    rpc GetModelItemList(GetModelItemListRequest) returns (Response) {}
+
+    // 3、新增采集项接口
+    rpc AddItem(AddItemRequest) returns (Response) {}
+
+    // 4、实例下的采集项列表
+    rpc GetInstItemList(GetInstItemListRequest) returns (Response) {}
+
+    // 5、模型实例维度的采集项的黑白名单设置接口
+    rpc SetBlackWhite(SetBlackWhiteRequest) returns (Response) {}
+
+    // 6、针对主机实例,更新telegraf
+    rpc UpdateTelegraf(UpdateTelegrafRequest) returns (UpdateTelegrafResponse) {}
+
+    // 7、新增实例,支持批量新增
+    rpc AddInsts(AddInstsRequest) returns (BoolResponse) {}
+
+    // 8、修改实例,支持批量修改(使用场景:修改实例的collect_user,正常一次只会修改单个实例的collect_user)
+    rpc UpdateInsts(UpdateInstsRequest) returns (BoolResponse) {}
+
+    // 9、删除实例,支持批量删除
+    rpc DeleteInsts(DeleteInstsRequest) returns (BoolResponse) {}
+
+    // 10、新增实例间关联关系,不支持批量
+    rpc AddInstRelation(AddInstRelationRequest) returns (BoolResponse) {}
+
+    // 11、删除实例间关联关系,不支持批量
+    rpc DeleteInstRelation(DeleteInstRelationRequest) returns (BoolResponse) {}
+
+    // 12、修改主机的ip、sn、status(主机重新部署时或检查icse_agent时调用),不支持批量
+    rpc ChangeHostStatus(ChangeHostStatusRequest) returns (BoolResponse) {}
+
+    // 二、icse
+    // 1、主机初始化时,下发agent
+    // rpc DeployAgent(TaskDeployAgent) returns (ID) {}
+
+    // 2、执行单行命令
+    rpc RunCmdLineNoWait(TaskCommandLine) returns (ID) {}
+
+    // 3、拷贝文件
+    rpc ScpFileNoWait(TaskScpFile) returns (ID) {}
+
+    // 4、查看任务执行状态
+    rpc GetStatus(ID) returns (Status) {}
+
+    // 5、等待
+    rpc Wait(ID) returns (Status) {}
+
+
+    // 三、influxdb
+    // 1、获取influxdb的数据
+    rpc GetInfluxdbData(GetInfluxdbDataRequest) returns (GetInfluxdbDataResponse) {}
+
+}
+
+// 一、collect
+message Empty {}
+
+message GetModelItemListRequest {
+  string user_tag = 1;
+  int32  model_id = 2;
+}
+
+message AddItemRequest {
+  string org_tag = 1;
+  string user_tag = 2;
+  string method = 3;
+  string name = 4;
+  string type = 5;
+  string script_content = 6;
+  int32 official_item_id = 7;
+  string http_url = 8;
+  string http_header = 9;
+  string script_params = 10;
+  string result_type = 11;
+  string interval = 12;
+  string measurement = 13;
+  string tag = 14;
+  string field = 15;
+  string display_fields = 16;
+  int32 modelobject_id = 17;
+  int32 attr_id = 18;
+  string desc = 19;
+}
+
+message GetInstItemListRequest {
+  string user_tag = 1;
+  int32  model_id = 2;
+  int32  inst_id = 3;
+}
+
+message SetBlackWhiteRequest {
+  int32  inst_id = 1;
+  string operation_list = 2;
+}
+
+message Response {
+  int32 errorno = 1;
+  string error_msg_en = 2;
+  string error_msg_zh = 3;
+  string data = 4;
+}
+
+message UpdateTelegrafRequest {
+  string  tag = 1;
+}
+
+message UpdateTelegrafResponse {
+  bool  result = 1;
+}
+
+message AddInstsRequest {
+  repeated Inst inst = 1;
+}
+
+message UpdateInstsRequest {
+  repeated Inst inst = 1;
+}
+
+message DeleteInstsRequest {
+  string inst_ids = 1;
+}
+
+message Inst {
+  int32 model_id = 1;
+  int32 inst_id = 2;
+  string collect_user = 3;
+  bool is_host = 4;  // 是否是主机
+  string host_ip = 5;  // 如果是主机实例
+  string host_sn = 6;  // 如果是主机实例
+}
+
+message AddInstRelationRequest {
+  int32 master_inst_id = 1;   // salve_inst的采集项会归属于master_inst
+  int32 slave_inst_id = 2;
+}
+
+message DeleteInstRelationRequest {
+  int32 master_inst_id = 1;   // salve_inst的采集项会归属于master_inst
+  int32 slave_inst_id = 2;
+}
+
+message ChangeHostStatusRequest {
+  int32  host_id = 1;
+  string host_ip = 2;
+  string host_sn = 3;
+  string changed_status = 4;
+}
+
+message BoolResponse {
+  bool result = 1;
+  string msg = 2;
+}
+
+
+// 二、icse
+message TaskDeployAgent {
+  string      IPorHostName = 1;   //hostname or ip
+  string              user = 2;
+  string          password = 3;
+  repeated string     Tags = 4;
+}
+
+message TaskCommandLine {
+  string           ExecHost = 1;
+  string            CmdLine = 2;
+  int64             timeout = 3;
+  repeated string      Tags = 4;
+}
+
+message TaskScpFile {
+  string             RemoteHost = 1;
+  string                SrcFile = 2;
+  string                DstFile = 3;
+  int64                 timeout = 4;
+  repeated string          tags = 5;
+}
+
+
+message ID {
+  string ID = 1;
+}
+
+
+enum STATE {
+  UNKNOWN     = 0;
+  PENDING     = 1;
+  RUNNING     = 2;
+  COMPLETE    = 3;
+  STOPPED     = 4;
+  TIMEOUT     = 6;
+  SSHNETFAIL  = 7;
+  TASKFAIL    = 8;
+  TASKNOEXIST = 9;
+}
+
+
+message Status {
+  string               ID =  1;
+  string            State =  2;
+  int64         StartTime =  3;
+  int64          StopTime =  4;
+  string           Stdout = 5;
+  string           Stderr = 6;
+  int32          ExitCode = 7;
+  //repeated string TaskErr = 8;
+}
+
+
+// 三、influxdb
+message GetInfluxdbDataRequest {
+  string Sql = 1;
+  string Epoch = 2;
+}
+
+message GetInfluxdbDataResponse {
+  string Result = 1;
+}
+

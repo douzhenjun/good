@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package alarmpb;
+
+
+service Alarm {
+    rpc Send(SendRequest) returns (SendRespond) {}
+    rpc GetAlarmStatus(GetAlarmStatusRequest) returns (GetAlarmStatusRespond) {}
+    rpc GetAlarmItem(GetAlarmItemRequest) returns (GetAlarmItemRespond) {}
+    rpc GetAlarmResultByInstid(GetAlarmResultByInstidRequest) returns (GetAlarmResultByInstidRespond) {}
+    rpc GetAlarmResult(GetAlarmResultRequest) returns (GetAlarmResultRespond) {}
+}
+
+message SendRequest {
+    int32 collect_id       =1; // 采集项id
+    int32 interval         =2; // 采集周期,采集周期和告警项的检查周期应保持一致
+}
+
+message GetAlarmStatusRequest {
+    string model_object     =1; // 模型名
+    string inst_id          =2;  // 实例id
+}
+
+message GetAlarmItemRequest {
+    string model_id       =1; //模型id
+    string inst_id        =2;  //模型所对应的实例id,格式如['1','2']
+}
+
+message SendRespond {
+    int32 errorno         =1; //调用成功,errorno=0,调用失败,errorno=1 
+    string data           =2; //调用成功,data='',调用失败,data=失败信息
+}
+
+message GetAlarmStatusRespond {
+    int32 errorno       =1;  //调用成功,errorno=0,调用失败,errorno=1 
+    string data         =2;  //告警信息,格式如[{'id':'1','level':'严重','message':'','state':'alarming'},]
+}
+
+message GetAlarmItemRespond {
+    int32 errorno       =1;  //调用成功,errorno=0,调用失败,errorno=1 
+    string data         =2;  //实例是否有告警项,格式如:{inst_id:{'alarmitem':'yes','alarm_state':'alarming'}},键是实例id,值中alarmitem=yes(有告警项),alarm_state=alarming(正在告警)
+}
+
+message GetAlarmResultByInstidRequest{
+    string inst_id      =1; //实例id
+    string user_tag     =2; //用户tag
+}
+
+message GetAlarmResultByInstidRespond {
+    int32 errorno      =1; //调用成功,errorno=0,调用失败,errorno=1
+    string error_msg_zh =2;
+    string error_msg_en =3; 
+    string data        =4; //实例的告警信息,格式如:[{'id':'','alarm_name':'','collect_name':'',level:'','state':'','alarm_time':'','','recovery_time':'','message':'','module_name':'','model_object':'','inst_name':'','inst_id':''},]
+}
+
+message GetAlarmResultRequest{
+    string inst_ids    =1;//形式如:'["1","2"]'
+    string user_tag    =2;//用户tag
+}
+
+message GetAlarmResultRespond{
+    int32 errorno      =1;//调用成功,errorno=0,调用失败,errorno=1
+    string error_msg_zh =2;
+    string error_msg_en =3; 
+    string data        =4; //实例的告警信息,格式如:[{'id':'','alarm_name':'','collect_name':'',level:'','state':'','alarm_time':'','','recovery_time':'','message':'','module_name':'','model_object':'','inst_name':'','inst_id':''},]
+}

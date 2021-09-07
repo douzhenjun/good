@@ -1,0 +1,35 @@
+release:
+  main_project:
+    name: dbaas
+    version: release-k8s-v2.1
+  sub_project:
+    project01:
+      name: cmdb
+      version: v1.5.0-0611
+    project02:
+      name: portal
+      version: release-k8s-v2.1
+    project03:
+      name: capricorn
+      version: v1.5.0-0611
+    project04:
+      name: influxdb
+      version: master
+    project05:
+      name: envoy
+      version: v1.5.0-0611
+    project06:
+      name: notice
+      version: v1.5.0-0611
+    project07:
+      name: collect
+      version: v1.5.0-0611
+    project08:
+      name: alarm
+      version: v1.5.0-0611
+    project09:
+      name: pg
+      version: master
+    project10:
+      name: gateway
+      version: v1.5.0-0611

@@ -1,0 +1,460 @@
+﻿
+syntax = "proto3";
+package cmdb;
+
+service Cmdb {
+    rpc getCommonScript(GetCommonScriptRequest) returns (res) {}
+    rpc addCommonScript(AddCommonScriptRequest) returns (res) {}
+    rpc updateCommonScript(UpdateCommonScriptRequest) returns (res) {}
+    rpc deleteCommonScript(DeleteCommonScriptRequest) returns (res) {}
+    //获取模型下实例信息
+    rpc getCmdbResources(GetResourcesRequest) returns (res) {}
+
+    //获取模型字段所有信息
+    rpc getCmdbModelField(GetModelFieldRequest) returns (res) {}
+
+    //获取模块信息
+    rpc getCmdbModule(GetModuleRequest) returns (res) {}
+
+    //获取模型信息
+    rpc getCmdbModel(GetModelRequest) returns (res) {}
+
+    //获取用户tag信息
+    rpc getCmdbUsertag(GetUsertagRequest) returns (res) {}
+
+    //获取实例用户tag信息
+    rpc getCmdbUsertagInst(GetUsertagInstanceRequest) returns (commonres) {}
+
+    //获取多个实例信息
+    rpc getCmdbObjectInst(GetObjectInstRequest) returns (res) {}
+
+    // 获取Icon图标
+    rpc getIconList(Empty) returns (GetIconListResponse) {}
+
+    // 根据model_id+inst_id, 获取主机inst的列表 
+    rpc getHostinstByModelinst(GetHostinstByModelinstRequest) returns (GetHostinstByModelinstResponse) {}
+
+    // 根据主机inst, 获取主机inst上的所有inst
+    rpc getInstsByHostinst(GetInstsByHostinstRequest) returns (GetInstsByHostinstResponse) {}
+
+    // 根据主机inst sn, 获取主机inst上的所有告警模块所需信息
+    rpc getHostinstsn(GetHostinstsnRequest) returns (res) {}
+
+    // 获取单位列表 
+    rpc getUnitList(Empty) returns (GetUnitListResponse) {}
+
+    //获取模型字段与标准定义字段关联关系
+    rpc getModelObjectAttrStandardFieldRel(GetModelStandardFieldRelRequest) returns (GetModelStandardFieldRelResponse) {}
+
+    // 获取资源对应的模型
+    rpc getModelName(GetModelNameRequest) returns (GetModelNameResponse) {}
+
+    // 根据主机inst id, 获取主机inst上的所有告警模块所需信息
+    rpc getHostinstid(Empty) returns (commonres) {}
+
+    //查看各模块应用cmdb资源信息
+    rpc getInstApply(GetInstApplyRequest) returns (res) {}
+
+    //添加各模块应用cmdb资源信息
+    rpc addInstApply(AddInstApplyRequest) returns (res) {}
+
+    //删除各模块应用cmdb资源信息
+    rpc deleteInstApply(DeleteInstApplyRequest) returns (res) {}
+
+    //获取已部署主机信息
+    rpc getDeployHostinst(getDeployHostinstRequest) returns (res) {}
+
+    // 新建对象实例接口
+    rpc addInstance(AddInstanceRequest)returns (res) {}
+
+    // 编辑对象实例接口
+    rpc updateInstance(UpdateInstanceRequest)returns (res) {}
+
+    // 删除对象实例接口
+    rpc deleteInstance(DeleteInstanceRequest)returns (res) {}
+
+    // 关联对象实例接口
+    rpc relateInstance(RelateInstanceRequest)returns (res) {}
+
+    // 获取图表类模型字段接口
+    rpc getDynamicAttr(getDynamicAttrRequest)returns (res) {}
+
+     // 获取实例关联实例接口
+    rpc getRelatedInst(getRelatedInstRequest)returns (res) {}
+
+    //根据实例id获取与其关联的所有实例id(告警)
+    rpc getRelatedInstBySourId(getRelatedInstBySourIdRequest)returns (res) {}
+
+    // 获取关联模型下空闲实例接口
+    rpc getRelatedFreeInst(getRelatedFreeInstRequest)returns (res) {}
+
+    // 获取关联模型下空闲实例接口
+    rpc judgeSameClusterdbInst(judgeSameClusterdbInstRequest)returns (judgeSameClusterdbInstResponse) {}
+
+    // 新建对象实例、关联实例、添加各模块应用cmdb资源信息接口
+    rpc workflowAdd(workflowAddRequest)returns (res) {}
+
+    // 获取实例关联模型实例资源信息接口
+    rpc workflowGetInst(workflowGetInstRequest)returns (res) {}
+
+    // 删除实例及其关联实例接口
+    rpc workflowDeleteInst(workflowDeleteInstRequest)returns (res) {}
+
+    // 获取实例所有关联实例接口
+    rpc workflowGetInstRels(workflowGetInstRelsRequest)returns (res) {}
+
+    // 获取采集所需的模型下所有实例、采集用户、关联主机信息
+    rpc GetInststocollect(GetInststocollectRequest)returns (res) {}
+
+    // 获取区域列表信息
+    rpc GetAreainfos(GetAreainfosRequest)returns (res) {}
+
+    // 新增、修改部署主机
+    rpc AddUpdateDeploy(AddUpdateDeployHostRequest)returns (res) {}
+
+}
+
+message GetCommonScriptRequest {
+  int32  page      = 1;
+  int32  pagesize  = 2;
+  string user      = 3;
+  string module    = 4;
+  string api_path  = 5;
+}
+
+message AddCommonScriptRequest {
+  string name         = 1;
+  string content      = 2;
+  string desc         = 3;
+  string module       = 4;
+  string script_type  = 5;
+  string input_param  = 6;
+  string output_param = 7;
+  string org_tag      = 8;
+  string user_tag     = 9;
+  string method       = 10;
+}
+
+message UpdateCommonScriptRequest {
+  string user              = 1;
+  string common_script_id  = 2;
+  string content           = 3;
+  string desc              = 4;
+  string module            = 5;
+  string script_type       = 6;
+  string input_param       = 7;
+  string output_param      = 8;
+  string org_tag           = 9;
+  string user_tag          = 10;
+  string role              = 11;
+  string api_path          = 12;
+  string method            = 13;
+}
+
+message DeleteCommonScriptRequest {
+  string user              = 1;
+  string common_script_id  = 2;
+  string org_tag           = 3;
+  string user_tag          = 4;
+  string role              = 5;
+  string api_path          = 6;
+}
+
+message GetInstApplyRequest {
+  int32 model_id = 1;
+  string module = 2;
+  int32 inst_id= 3;
+}
+
+message AddInstApplyRequest {
+
+  string model_id = 1; // 模型id 可传空字符串  多个id可用逗号隔开如‘1,2,3’
+  string module = 2; // 应用cmdb资源的模块名称如'gemini' 必传
+  string inst_id= 3; // cmdb 实例id  多个id可用逗号隔开如‘1,2,3’
+  string type= 4;    // 模块具体应用cmdb资源的应用或项目名称
+  int32 apply_id= 5; // 模块具体应用cmdb资源的id  必传
+  string desc  = 6;
+}
+// module+type+apply_id   为具体使用cmdb资源的唯一标识
+message DeleteInstApplyRequest {
+//  string model_id = 1;
+  string module = 1; //应用cmdb资源的模块名称如'gemini' 必传
+//  string inst_id= 3;
+  string type= 2;   // 模块具体应用cmdb资源的应用或项目名称
+  int32 apply_id= 3; // 模块具体应用cmdb资源的id  必传
+}
+
+message getDeployHostinstRequest {
+  string model_code = 1;
+  string host_ids = 2;
+  string status = 3;  //status=all 时获取所有部署agent的主机信息，不传默认获取部署成功的主机信息
+  string filter_condition = 4; //过滤条件
+  int32 user = 5;   //userid  cookies里获取
+  string module = 6;   //模块名称
+}
+
+message GetResourcesRequest {
+  int32 user = 1;//userid  查全部userid = 1
+  int32 model_id = 2;//模型id
+  string module = 3;//模块名称
+  string api_path = 4;//请求路径，不填
+  int32 inst_id= 5;//实例id
+  string page = 6;//页数
+  string pagesize = 7;//每页数量
+  string model_code = 8;//模型code
+  string filter_condition = 9; //过滤条件
+  string attr_id = 10; //模型字段id  多个可用,隔开
+}
+
+message GetObjectInstRequest {
+  string objectinst = 1;
+}
+
+message GetModelFieldRequest {
+  int32 model_id = 1;//模型id
+  string model_code = 2;//模型code
+  int32 inst_id = 3;//实例id
+  string type = 4;//标准定义字段
+  int32 attr_id = 5;//模型字段id
+  string collection_index = 6; //采集指标类型：default:用户输入类、static:状态类、dynamic:图标类、action:动作类
+  string attr_name = 7;//模型字段name
+}
+
+message GetModuleRequest {
+  int32 pagesize = 1;
+  int32 page= 2;
+}
+
+message GetModelRequest {
+  int32 pagesize = 1;
+  int32 page = 2;
+  string key = 3;
+}
+
+message GetUsertagRequest {
+  int32 inst_id= 1;
+}
+
+message GetUsertagInstanceRequest {
+  string user_tag= 1;
+}
+
+message commonres {
+  string data = 1;
+}
+
+message GetHostinstByModelinstRequest {
+  int32 model_id = 1;
+  int32 inst_id = 2;
+}
+
+message GetHostinstByModelinstResponse {
+  string data = 1;
+}
+
+message GetInstsByHostinstRequest {
+  int32 hostinst_id = 1;
+}
+
+message GetInstsByHostinstResponse {
+  string data = 1;
+}
+
+message res {
+  int32 errorno = 1;
+  string error_msg_en = 2;
+  string error_msg_zh = 3;
+  string data = 4;
+}
+
+message GetHostinstsnRequest {
+  int32 model_id = 1;
+  int32 inst_id= 2;
+}
+
+message Empty {}
+
+message GetUnitListResponse {
+  string  data = 1;
+}
+
+message GetIconListResponse {
+  string  data = 1;
+}
+
+message GetModelStandardFieldRelRequest {
+  int32 model_id = 1;
+  string standardfield = 2;
+
+}
+
+message GetModelStandardFieldRelResponse {
+  string  data = 1;
+}
+
+message GetModelNameRequest {
+  int32 inst_id = 1;
+}
+
+message GetModelNameResponse {
+  int32 model_id = 1;
+  string model_name = 2;
+}
+
+message AddInstanceRequest {
+  string name         = 1;
+  int32  model_id     = 2;
+  string model_code   = 3;
+  string module_name  = 4;
+  int32  inst_area_id = 5;
+  string field        = 6;
+  string org_tag      = 7;
+  string user_tag     = 8;
+}
+
+message UpdateInstanceRequest {
+  int32  inst_id      = 1;
+  string name         = 2;
+  int32  model_id     = 3;
+  string model_code   = 4;
+  string module_name  = 5;
+  int32  inst_area_id = 6;
+  string field        = 7;
+  string org_tag      = 8;
+  string user_tag     = 9;
+  string userid       = 10;
+  string role         = 11;
+  string api_path     = 12;
+}
+
+message DeleteInstanceRequest {
+  string userid            = 1;
+  int32  inst_id           = 2;
+  string org_tag           = 3;
+  string user_tag          = 4;
+  string role              = 5;
+  string api_path          = 6;
+}
+
+
+message RelateInstanceRequest {
+  string userid            = 1;
+  int32  inst_id           = 2;
+  string ralate_inst_id    = 3;
+  string operation         = 4;
+  string org_tag           = 5;
+  string user_tag          = 6;
+  string role              = 7;
+  string api_path          = 8;
+}
+
+message getDynamicAttrRequest{
+  int32  inst_id           = 1;
+  int32  model_id          = 2;
+  int32  attr_id           = 3;
+  string user_tag          = 4;  //采集项使用  root user_tag=AAAA  需转化为 user_tag=ALL
+}
+
+
+message getRelatedInstRequest {
+  string model_code = 1;
+  int32 inst_id = 2;
+  string filter_condition = 3; //过滤条件
+  int32 user = 4;   //userid  cookies里获取
+  string module = 5;   //模块名称
+  int32 model_id = 6;   //model_id  查实例关联的模型id
+  string type = 7;   //all  查看所有与inst_id关联的model_id下模型实例，related 查看已关联实例信息
+}
+
+message getRelatedInstBySourIdRequest {
+  string inst_id = 1; //想要查询的实例id
+}
+
+message getRelatedFreeInstRequest {
+  string model_code = 1;
+  int32 inst_id = 2;
+  string filter_condition = 3; //过滤条件
+  int32 user = 4;   //userid  cookies里获取
+  string module = 5;   //模块名称
+  int32 model_id = 6;   //model_id  查实例关联的模型id
+  string relate_model_code = 7;
+  int32 relate_model_id = 8;
+}
+
+message judgeSameClusterdbInstRequest {
+  string port = 1;
+  string hostids= 2;
+}
+
+message judgeSameClusterdbInstResponse {
+  bool result = 1;
+}
+
+message workflowAddRequest {
+  string createInfo       = 1;
+  string relateInfo       = 2;
+}
+
+
+message workflowGetInstRequest {
+  string model_code = 1;
+  string inst_id = 2;  //基点实例id
+  string filter_condition = 3; //过滤条件
+  int32 user = 4;   //userid  cookies里获取
+  string module = 5;   //模块名称
+  int32 model_id = 6;   //model_id  查实例的模型id
+  string instRelInfo = 7;  //["OracleCluster->cDASComputeNode","OracleCluster->cDASStorageNode"] 模型code->模型code 第一个是基点实例的模型code 根据模型拓扑按层次填写
+  string authTag = 8; //authTag:"NOAUTH":不鉴权，"AUTH":鉴权
+
+}
+
+message workflowDeleteInstRequest {
+  string userid            = 1;//userid  cookies里获取
+  string inst_id          = 2; //基点实例id
+  string org_tag           = 3;
+  string user_tag          = 4;
+  string role              = 5;
+  string api_path          = 6;
+  string authTag           = 7; //authTag:"NOAUTH":不鉴权，"AUTH":鉴权
+  string module            = 8;   //模块名称
+  string deleteModel       = 9; //删除的关联模型名称 "cDASComputeNode,cDASStorageNode,cDASFusionNode,OracleDatabase,OracleInstance" 模型code,不包括基点实例模型code
+}
+
+message workflowGetInstRelsRequest {
+  string userid            = 1;//userid  cookies里获取
+  string inst_id           = 2; //基点实例id
+  string authTag           = 3; //authTag:"NOAUTH":不鉴权，"AUTH":鉴权
+  string module            = 4;   //模块名称
+  string instRelInfo       = 5;   //["OracleCluster->cDASComputeNode","OracleCluster->cDASStorageNode"] 模型code->模型code 第一个是基点实例的模型code 根据模型拓扑按层次填写
+}
+
+message GetInststocollectRequest {
+  int32 userid = 1;//userid  查全部userid = 1
+  int32 model_id = 2;//模型id
+  string model_code = 3;//模型code
+  string authTag = 4; //authTag:"NOAUTH":不鉴权，"AUTH":鉴权
+}
+
+message GetAreainfosRequest {
+  string type = 1;//是否树状展示
+  string key = 2; //模糊查询
+}
+
+message AddUpdateDeployHostRequest {
+  string hostId     = 1;//主机id
+  string name       = 2; //主机名称
+  string areaId     = 3;//区域id
+  string org_tag    = 4; //组织tag
+  string user_tag   = 5; //用户tag
+  string module     = 6; //模块名称
+  string deployUsername = 7;//部署用户名
+  string deployPassword = 8; //部署密码
+  string deployIp       = 9;//部署IP
+  string deployPort     = 10; //部署端口
+  string field          = 11;//主机模型字段信息
+  string operation      = 12;//操作选项add:新增,update:修改
+  string deployStatus   = 13;//agent状态
+  string initValue      = 14;//主机初始化自动扫描数据
+  string userId         = 15;//用户id
+  string authTag        = 16; //authTag:"NOAUTH":不鉴权，"AUTH":鉴权
+}

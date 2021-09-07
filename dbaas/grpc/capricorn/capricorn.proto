@@ -1,0 +1,103 @@
+
+syntax = "proto3";
+package capricorn;
+
+service capricorn {
+  rpc capricorn(msg) returns (res){}
+  rpc getUserInfo(msgModule) returns (userInfo){}
+  rpc getUserTag(userId) returns (userTagInfo){}
+  //获取用户信息
+  rpc getUserResources(getUserResourcesRequest) returns (response) {}
+  //新增用户信息
+  rpc addUserResources(addUserResourcesRequest) returns (response) {}
+  //修改用户信息
+  rpc updateUserResources(updateUserResourcesRequest) returns (response) {}
+   //删除用户信息
+  rpc deleteUserResources(deleteUserResourcesRequest) returns (response) {}
+   //启用/禁用用户信息
+  rpc operateUserResources(operateUserResourcesRequest) returns (response) {}
+  //获取角色信息
+  rpc getRoleResources(getRoleResourcesRequest) returns (response) {}
+  //重置用户密码
+  rpc getRandomPassword(getRandomPasswordRequest) returns (response) {}
+}
+
+
+message getRandomPasswordRequest {
+  string userid = 1;
+  string operUsername = 2;
+}
+
+message getRoleResourcesRequest {
+  string id = 1;
+  string roleName = 2;
+}
+
+message operateUserResourcesRequest {
+  string id = 1;
+  string operUsername = 2;
+}
+
+message deleteUserResourcesRequest {
+  string id = 1;
+  string operUsername = 2;
+}
+
+message updateUserResourcesRequest {
+  string id = 1;
+  string operUsername = 2;
+  string username = 3;
+  string password = 4;
+  string organizationId = 5;
+  string isManager = 6;
+  string roleId = 7;
+}
+
+message addUserResourcesRequest {
+  string roleId = 1;
+  string operUsername = 2;
+  string username = 3;
+  string password = 4;
+  string organizationId = 5;
+  string isManager = 6;
+}
+
+message getUserResourcesRequest {
+  string id = 1;
+  string username = 2;
+  string tag = 3;
+}
+
+
+message response {
+  int32 errorno = 1;
+  string error_msg_en = 2;
+  string error_msg_zh = 3;
+  string data = 4;
+}
+
+message msgModule {
+  string module = 1;
+}
+
+message userInfo {
+  string user = 1;
+}
+
+message msg {
+  string module_name = 1;
+  string parameter = 2;
+}
+
+message res {
+  bool status = 1;
+  string result = 2;
+}
+
+message userId {
+  string userid = 1;
+}
+
+message userTagInfo {
+  string usertag= 1;
+}

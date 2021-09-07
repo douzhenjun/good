@@ -1,0 +1,1 @@
+update defaultparameters set parameter_value='67108864' where parameter_name = 'innodb_sort_buffer_size';

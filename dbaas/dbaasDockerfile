@@ -1,0 +1,11 @@
+FROM zdcp.base:V1.0.0
+RUN mkdir -p /opt/dbaas/static/report
+# 假设已经完成编译，取名DBaas
+COPY dbaas/DBaas dbaas/config.yaml dbaas/init.sh dbaas/version.sh /opt/dbaas/
+COPY dbaas/static /opt/dbaas/static/
+COPY dbaas/supervisord.conf /etc/supervisord.conf
+COPY dbaas/support-files /opt/dbaas/support-files
+RUN chmod u+x /opt/dbaas/DBaas \
+    && chmod a+x /opt/dbaas/init.sh \
+    && chmod a+x /opt/dbaas/version.sh
+CMD ["/opt/dbaas/init.sh"]
